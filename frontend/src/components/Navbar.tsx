@@ -140,17 +140,17 @@ const Navbar = () => {
       <nav
         className={`dark:bg-darkbg relative z-2 flex items-center justify-between bg-whitebg px-10 py-3 font-title dark:text-white`}
       >
-        {/* Quizzer AI */}
+        {/* HootLearn */}
         <Link to="/" aria-label="Home" className="flex gap-x-2 items-center">
           <img
             src={
               "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427090/quiz_imfkoz.png"
             }
-            alt="Quizzer AI"
+            alt="HootLearn"
             className="h-10 pointer-events-none"
           />
           <p className="hidden md:block font-bold dark:text-darkmodetext  bg-gradient-to-t text-transparent tracking-wider bg-clip-text from-cta to-hovercta text-3xl">
-            Quizzer AI
+            HootLearn
           </p>
         </Link>
 
@@ -556,11 +556,11 @@ const Navbar = () => {
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427090/quiz_imfkoz.png"
                 }
-                alt="Quizzer AI"
+                alt="HootLearn"
                 className="h-10 pointer-events-none"
               />
               <p className="font-bold dark:text-darkmodetext  bg-gradient-to-t text-transparent tracking-wider bg-clip-text from-cta to-hovercta text-3xl">
-                Quizzer AI
+                HootLearn
               </p>
             </button>
             <RxCross2

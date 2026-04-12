@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../utils/axios";
 import Profile from "./Profile";
 import { useEffect } from "react";
+// @ts-ignore asset
 import banner from "@/assets/profileBackground2.png";
 
 const User = () => {
@@ -32,9 +33,9 @@ const User = () => {
   // Set window title.
   useEffect(() => {
     if (user) {
-      document.title = `${user?.data?.user?.name} | Quizzer AI`;
+      document.title = `${user?.data?.user?.name} | HootLearn`;
     } else {
-      document.title = `${username} | Quizzer AI`;
+      document.title = `${username} | HootLearn`;
     }
   }, [user, username]);
 

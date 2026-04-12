@@ -6,6 +6,9 @@ export const fileLimit = 5;
 
 // The number of quizzes a user can create / save.
 export const quizLimit = 10;
+ 
+// The number of questions a quiz can have.
+export const quizQuestionLimit = 50;
 
 // The max size of file a user can upload. (Mb)
 export const fileSizeLimit = 5;

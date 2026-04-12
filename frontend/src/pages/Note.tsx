@@ -9,9 +9,12 @@ import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 import NoteEditor from "./NoteEditor";
 import ReactQuill from "react-quill-new";
 // Keep this for toolbar styles
+// @ts-ignore asset
 import "react-quill-new/dist/quill.bubble.css";
 
+// @ts-ignore asset
 import ReadingDoodle from "@/assets/ReadingDoodle.svg";
+// @ts-ignore asset
 import ReadingDoodleDark from "@/assets/ReadingDoodleDark.svg";
 
 const Note = () => {
@@ -49,8 +52,8 @@ const Note = () => {
   // Set window title.
   useEffect(() => {
     if (data?.data?.note?.title) {
-      document.title = `${data?.data?.note?.title} | Quizzer AI`;
-    } else document.title = `Note | Quizzer AI`;
+      document.title = `${data?.data?.note?.title} | HootLearn`;
+    } else document.title = `Note | HootLearn`;
   }, [data?.data]);
 
   // Loading Note

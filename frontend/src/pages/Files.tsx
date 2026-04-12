@@ -60,7 +60,7 @@ const Files = () => {
 
   //  Page Title
   useEffect(() => {
-    document.title = "Your Files | Quizzer AI";
+    document.title = "Your Files | HootLearn";
   }, []);
 
   // Get number of files
@@ -588,7 +588,7 @@ const Files = () => {
 
           {/* Map files if files are found */}
           {dbFiles && dbFiles?.pages?.[0]?.data?.files.length > 0 && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {dbFiles &&
                 dbFiles?.pages?.map((page) => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -671,7 +671,7 @@ const Files = () => {
 
           {/* Files Loader */}
           {loadingFiles && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {Array(4)
                 ?.fill(null)
                 ?.map((_, index) => {

@@ -7,6 +7,8 @@ import { GoUpButton, InputBox } from "../components";
 import { ContextValue, useDarkMode } from "../context/DarkModeContext";
 import { useDBUser } from "@/context/UserContext";
 import toast from "react-hot-toast";
+import SaveQuizModal from "@/components/SaveQuizModal";
+import { Save } from "lucide-react";
 
 const FlashCardQuiz = () => {
   const { isDarkMode } = useDarkMode() as ContextValue;
@@ -22,6 +24,8 @@ const FlashCardQuiz = () => {
   const [note, setNote] = useState<any>();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [file, setFile] = useState<any>();
+ 
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 
   // Error state
   const [inputError, setInputError] = useState(0);
@@ -68,7 +72,7 @@ const FlashCardQuiz = () => {
 
   // Title
   useEffect(() => {
-    document.title = `FlashCards | Quizzer AI`;
+    document.title = `FlashCards | HootLearn`;
   }, []);
 
   // Fetch data on click of the button
@@ -119,7 +123,7 @@ const FlashCardQuiz = () => {
         {/* Mapping flashcards */}
         {!isLoading && questions?.length > 0 && (
           <>
-            <p className="text-center mt-10  px-2">
+            <p className="text-center mt-10  px-2 text-darkbg/70 dark:text-white/70">
               Note : Questions & answers are created using AI and may be
               incorrect.
             </p>
@@ -135,8 +139,25 @@ const FlashCardQuiz = () => {
                   );
                 })}
             </div>
+
+            <div className="flex flex-col items-center gap-y-6 pb-24">
+              <button
+                onClick={() => setIsSaveModalOpen(true)}
+                className="group flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95 animate-in fade-in slide-in-from-bottom-5 duration-700"
+              >
+                <Save className="text-2xl" />
+                <span className="text-xl font-bold tracking-wide">Save this Quiz to Library</span>
+              </button>
+            </div>
           </>
         )}
+
+        <SaveQuizModal
+          isOpen={isSaveModalOpen}
+          onClose={() => setIsSaveModalOpen(false)}
+          questions={questions}
+          quizType="Flashcard"
+        />
 
         {/* Loading Indicator */}
         {isLoading && (

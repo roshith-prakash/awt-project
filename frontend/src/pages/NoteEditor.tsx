@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import ReactQuill from "react-quill-new";
+// @ts-ignore asset
 import "react-quill-new/dist/quill.snow.css"; // Keep this for toolbar styles
 
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -157,8 +158,8 @@ const NoteEditor = () => {
   // Set window title.
   useEffect(() => {
     if (data?.data?.note?.title) {
-      document.title = `${data?.data?.note?.title} | Quizzer AI`;
-    } else document.title = `Note | Quizzer AI`;
+      document.title = `${data?.data?.note?.title} | HootLearn`;
+    } else document.title = `Note | HootLearn`;
   }, [data?.data]);
 
   // Delete the note

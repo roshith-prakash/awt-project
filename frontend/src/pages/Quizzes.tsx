@@ -166,7 +166,7 @@ const Quizzes = () => {
 
   //  Page Title
   useEffect(() => {
-    document.title = "Your Quizzes | Quizzer AI";
+    document.title = "Your Quizzes | HootLearn";
   }, []);
 
   // Get number of quizzes
@@ -456,7 +456,7 @@ const Quizzes = () => {
 
           {/* Map notes if notes are found */}
           {quizzes && quizzes?.pages?.[0]?.data?.quizzes.length > 0 && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {quizzes &&
                 quizzes?.pages?.map((page) => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -478,7 +478,7 @@ const Quizzes = () => {
 
           {/* Quizzes Loader */}
           {loadingQuizzes && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {Array(4)
                 ?.fill(null)
                 ?.map((_, index) => {

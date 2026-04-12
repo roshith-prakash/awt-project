@@ -54,7 +54,7 @@ const EditProfile = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = `Edit Profile | Quizzer AI`;
+    document.title = `Edit Profile | HootLearn`;
   }, []);
 
   // To set default values.

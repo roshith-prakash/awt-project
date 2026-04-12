@@ -2,19 +2,19 @@ import { useEffect } from "react";
 
 const faqs = [
   {
-    question: "What is Quizzer AI?",
+    question: "What is HootLearn?",
     answer:
-      "Quizzer AI is a smart quiz creation platform that lets you quickly generate flashcards, MCQs, and factual questions—powered by AI to make learning fast, fun, and effective.",
+      "HootLearn is a smart quiz creation platform that lets you quickly generate flashcards, MCQs, and factual questions—powered by AI to make learning fast, fun, and effective.",
   },
   {
     question: "Who can use it?",
     answer:
-      "Quizzer AI is perfect for students, teachers, lifelong learners, or anyone who enjoys structured and gamified learning experiences.",
+      "HootLearn is perfect for students, teachers, lifelong learners, or anyone who enjoys structured and gamified learning experiences.",
   },
   {
     question: "How does the AI work?",
     answer:
-      "Quizzer AI uses advanced models like Gemini AI to instantly generate high-quality questions, flashcards, and summaries—tailored to your input and learning style.",
+      "HootLearn uses advanced models like Gemini AI to instantly generate high-quality questions, flashcards, and summaries—tailored to your input and learning style.",
   },
   {
     question: "What kinds of quizzes can I create?",
@@ -24,24 +24,24 @@ const faqs = [
   {
     question: "Is it mobile-friendly?",
     answer:
-      "Absolutely. Quizzer AI is fully responsive and works smoothly on phones, tablets, and desktops.",
+      "Absolutely. HootLearn is fully responsive and works smoothly on phones, tablets, and desktops.",
   },
   {
     question: "Is it free to use?",
     answer:
-      "Yes! Quizzer AI is currently free, with generous daily credits to get you started.",
+      "Yes! HootLearn is currently free, with generous daily credits to get you started.",
   },
   {
     question: "Any future plans?",
     answer:
-      "There's a few interesting things in the works. Keep using Quizzer AI to know more.",
+      "There's a few interesting things in the works. Keep using HootLearn to know more.",
   },
 ];
 
 const FaqSection = () => {
   // Set window title.
   useEffect(() => {
-    document.title = `FAQ | Quizzer AI`;
+    document.title = `FAQ | HootLearn`;
   }, []);
 
   return (

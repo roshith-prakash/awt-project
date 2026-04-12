@@ -18,7 +18,9 @@ import { axiosInstance } from "@/utils/axios";
 import { FaGoogle } from "react-icons/fa6";
 import { useDBUser } from "@/context/UserContext";
 
+// @ts-ignore asset
 import doodle from "@/assets/MessyDoodle.svg";
+// @ts-ignore asset
 import doodleDark from "@/assets/MessyDoodleDark.svg";
 import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 
@@ -48,7 +50,7 @@ const Login = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Sign in | Quizzer AI";
+    document.title = "Sign in | HootLearn";
   }, []);
 
   // Login using email and password
@@ -187,7 +189,7 @@ const Login = () => {
           <div className="bg-white dark:bg-white/5 max-w-xl dark:bg-darkgrey dark:text-darkmodetext px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
             {/* Title */}
             <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
-              Sign in to Quizzer AI
+              Sign in to HootLearn
             </h1>
 
             {/* Subtitle */}

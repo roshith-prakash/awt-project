@@ -50,7 +50,7 @@ const Notes = () => {
 
   //  Page Title
   useEffect(() => {
-    document.title = "Your Notes | Quizzer AI";
+    document.title = "Your Notes | HootLearn";
   }, []);
 
   // Get number of files
@@ -365,7 +365,7 @@ const Notes = () => {
 
           {/* Map notes if notes are found */}
           {notes && notes?.pages?.[0]?.data?.notes.length > 0 && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {notes &&
                 notes?.pages?.map((page) => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -442,7 +442,7 @@ const Notes = () => {
 
           {/* Notes Loader */}
           {loadingNotes && (
-            <div className="py-10 lg:px-5 flex justify-start flex-wrap gap-8">
+            <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {Array(4)
                 ?.fill(null)
                 ?.map((_, index) => {

@@ -55,7 +55,7 @@ const Signup = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Sign up | Quizzer AI";
+    document.title = "Sign up | HootLearn";
   }, []);
 
   // Handle Email Sign up

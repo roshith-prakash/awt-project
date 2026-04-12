@@ -8,6 +8,7 @@ import { PrimaryButton, SecondaryButton, Input } from "@/components";
 import { Trash2, Plus, Globe, Lock, ChevronLeft, Save } from "lucide-react";
 import { SyncLoader } from "react-spinners";
 import AlertModal from "@/components/reuseit/AlertModal";
+import { maxQuestionsPerQuiz } from "@/constants/constants";
 
 interface Question {
   question: string;
@@ -76,6 +77,10 @@ const QuizEditor = () => {
   }, [quizType, isEditMode]);
 
   const addQuestion = () => {
+    if (questions.length >= maxQuestionsPerQuiz) {
+      toast.error(`Maximum limit of ${maxQuestionsPerQuiz} questions reached.`);
+      return;
+    }
     const newQuestion: Question =
       quizType === "MCQ"
         ? { question: "", answer: "", options: ["", "", "", ""], reason: "" }
@@ -254,7 +259,12 @@ const QuizEditor = () => {
             <h2 className="text-2xl font-bold font-title">Questions</h2>
             <button
               onClick={addQuestion}
-              className="flex items-center gap-2 px-4 py-2 bg-cta text-white rounded-lg hover:shadow-lg transition-all"
+              disabled={questions.length >= maxQuestionsPerQuiz}
+              className={`flex items-center gap-2 px-4 py-2 bg-cta text-white rounded-lg transition-all ${
+                questions.length >= maxQuestionsPerQuiz 
+                  ? "opacity-50 cursor-not-allowed" 
+                  : "hover:shadow-lg"
+              }`}
             >
               <Plus size={18} /> Add Question
             </button>
@@ -377,11 +387,25 @@ const QuizEditor = () => {
 
           <button
             onClick={addQuestion}
-            className="w-full py-6 border-2 border-dashed border-gray-300 dark:border-white/10 rounded-2xl text-gray-400 hover:text-cta hover:border-cta hover:bg-cta/5 transition-all flex flex-col items-center justify-center gap-2"
+            disabled={questions.length >= maxQuestionsPerQuiz}
+            className={`w-full py-6 border-2 border-dashed rounded-2xl transition-all flex flex-col items-center justify-center gap-2 ${
+              questions.length >= maxQuestionsPerQuiz
+                ? "border-gray-200 dark:border-white/5 text-gray-300 cursor-not-allowed"
+                : "border-gray-300 dark:border-white/10 text-gray-400 hover:text-cta hover:border-cta hover:bg-cta/5"
+            }`}
           >
             <Plus size={32} />
-            <span className="font-semibold">Add Another Question</span>
+            <span className="font-semibold">
+              {questions.length >= maxQuestionsPerQuiz 
+                ? "Question Limit Reached" 
+                : "Add Another Question"}
+            </span>
           </button>
+          {questions.length >= maxQuestionsPerQuiz && (
+            <p className="text-center text-sm text-red-400 mt-2">
+              You have reached the maximum limit of {maxQuestionsPerQuiz} questions per quiz.
+            </p>
+          )}
         </div>
       </div>
     </div>

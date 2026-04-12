@@ -6,3 +6,9 @@ export const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 // Max number of notes that can be created.
 export const maxNumberOfNotes = 10;
+ 
+// Max number of quizzes that can be created.
+export const maxNumberOfQuizzes = 10;
+ 
+// Max number of questions per quiz.
+export const maxQuestionsPerQuiz = 50;

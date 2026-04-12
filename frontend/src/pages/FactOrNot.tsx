@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useEffect, useState, useRef } from "react";
 import { axiosInstance } from "../utils/axios";
 import { MCQ } from "@/components";
 import { SyncLoader } from "react-spinners";
@@ -7,6 +7,8 @@ import { GoUpButton, InputBox } from "../components";
 import { ContextValue, useDarkMode } from "../context/DarkModeContext";
 import { useDBUser } from "@/context/UserContext";
 import toast from "react-hot-toast";
+import SaveQuizModal from "@/components/SaveQuizModal";
+import { Save } from "lucide-react";
 
 const FactOrNot = () => {
   const { isDarkMode } = useDarkMode() as ContextValue;
@@ -30,8 +32,39 @@ const FactOrNot = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [file, setFile] = useState<any>();
+ 
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 
   const { dbUser, fetchUser } = useDBUser();
+
+  const [answeredCount, setAnsweredCount] = useState(0);
+  const attemptSaved = useRef(false);
+
+  // Save the attempt to the DB
+  const { mutate: saveAttempt } = useMutation({
+    mutationFn: (score: number) => {
+      return axiosInstance.post("/user-quiz/save-attempt", {
+        userId: dbUser?.id,
+        quizType: "Fact or Not",
+        score: score,
+        totalQuestions: questions.length,
+      });
+    },
+    onSuccess: () => {
+      attemptSaved.current = true;
+    },
+  });
+
+  // Effect to save attempt when all questions are answered
+  useEffect(() => {
+    if (
+      questions.length > 0 &&
+      answeredCount === questions.length &&
+      !attemptSaved.current
+    ) {
+      saveAttempt(correctCount);
+    }
+  }, [answeredCount, questions.length, correctCount, saveAttempt]);
 
   // Fetch Questions from the API
   const { data, isLoading, error, isFetching, refetch } = useQuery({
@@ -56,6 +89,8 @@ const FactOrNot = () => {
   useEffect(() => {
     if (data?.data?.questions?.length > 0) {
       setCorrectCount(0);
+      setAnsweredCount(0);
+      attemptSaved.current = false;
       setQuestions(data?.data?.questions);
       fetchUser();
       //@ts-expect-error Axios error
@@ -71,7 +106,7 @@ const FactOrNot = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = `Fact or Not | Quizzer AI`;
+    document.title = `Fact or Not | HootLearn`;
   }, []);
 
   // Fetch data on click of the button
@@ -137,9 +172,15 @@ const FactOrNot = () => {
                     key={item?.question}
                     question={item?.question}
                     answer={item?.answer}
-                    options={item?.options}
-                    reason={item?.reason}
-                    setCount={setCorrectCount}
+                    options={["True", "False"]}
+                    setCount={(updater: any) => {
+                      if (typeof updater === "function") {
+                        setCorrectCount(updater);
+                      } else {
+                        setCorrectCount(updater);
+                      }
+                      setAnsweredCount((prev) => prev + 1);
+                    }}
                   />
                 );
               }
@@ -170,31 +211,48 @@ const FactOrNot = () => {
         </div>
       )}
 
-      {/* Show Score */}
+      {/* Show Score & Save Button */}
       {!isLoading && questions?.length > 0 && (
-        <div className="flex justify-center ">
-          <p className="font-medium bg-white dark:bg-darkbg dark:border-2 dark:border-white w-[95%] rounded-xl text-center border-2 p-5 text-lg md:text-2xl flex justify-center items-center gap-x-5">
-            {correctCount == questions?.length && (
-              <img
-                src={
-                  "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427375/confetti_fmluma.gif"
-                }
-                className="w-10  [transform:rotateY(180deg)]"
-              />
-            )}
-            Your Score : <span>{correctCount}</span> / {questions?.length}
-            {correctCount == questions?.length && (
-              <img
-                src={
-                  "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427375/confetti_fmluma.gif"
-                }
-                className="w-10"
-              />
-            )}
-            {/* */}
-          </p>
+        <div className="flex flex-col items-center gap-y-6 pb-20">
+          <div className="flex justify-center w-full">
+            <p className="font-medium bg-white dark:bg-darkbg dark:border-2 dark:border-white w-[95%] rounded-xl text-center border-2 p-5 text-lg md:text-2xl flex justify-center items-center gap-x-5 shadow-lg">
+              {correctCount == questions?.length && (
+                <img
+                  src={
+                    "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427375/confetti_fmluma.gif"
+                  }
+                  className="w-10  [transform:rotateY(180deg)]"
+                />
+              )}
+              Your Score : <span>{correctCount}</span> / {questions?.length}
+              {correctCount == questions?.length && (
+                <img
+                  src={
+                    "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427375/confetti_fmluma.gif"
+                  }
+                  className="w-10"
+                />
+              )}
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsSaveModalOpen(true)}
+            className="group flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95 animate-in fade-in slide-in-from-bottom-5 duration-700"
+          >
+            <Save className="text-2xl" />
+            <span className="text-xl font-bold tracking-wide">Save this Quiz to Library</span>
+          </button>
         </div>
       )}
+
+      <SaveQuizModal
+        isOpen={isSaveModalOpen}
+        onClose={() => setIsSaveModalOpen(false)}
+        questions={questions}
+        quizType="Fact or Not"
+        sourceTitle="Fact Or Not"
+      />
 
       {/* Button to go back to top */}
       {!isLoading && questions?.length > 0 && (

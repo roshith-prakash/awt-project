@@ -14,7 +14,7 @@ const Home = () => {
   const { dbUser } = useDBUser();
 
   useEffect(() => {
-    document.title = `Home | Quizzer AI`;
+    document.title = `Home | HootLearn`;
   }, []);
 
   const features = [
@@ -107,7 +107,7 @@ const Home = () => {
                       : "bg-gradient-to-r to-hovercta via-slate-800 from-cta"
                   } bg-clip-text text-transparent leading-tight`}
                 >
-                  Quizzer AI
+                  HootLearn
                 </h1>
                 <p
                   className={`text-xl lg:text-2xl ${
@@ -179,7 +179,7 @@ const Home = () => {
                         Daily Credit Reset
                       </h3>
                       <p className="mt-2 text-sm md:text-base text-slate-600 dark:text-slate-300">
-                        Your Quizzer AI credits refresh every day.
+                        Your HootLearn credits refresh every day.
                       </p>
                     </div>
                   </div>

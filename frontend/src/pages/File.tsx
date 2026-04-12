@@ -9,7 +9,9 @@ import {
   SecondaryButton,
 } from "@/components";
 
+// @ts-ignore asset
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+// @ts-ignore asset
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils/axios";
@@ -104,8 +106,8 @@ function File() {
   // Set window title.
   useEffect(() => {
     if (data?.data?.file?.fileName) {
-      document.title = `${data?.data?.file?.fileName} | Quizzer AI`;
-    } else document.title = `File | Quizzer AI`;
+      document.title = `${data?.data?.file?.fileName} | HootLearn`;
+    } else document.title = `File | HootLearn`;
   }, [data?.data]);
 
   // Delete the note

@@ -1,7 +1,9 @@
 import { SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
 
+// @ts-ignore asset
 import doodle from "@/assets/SitReadingDoodle.svg";
+// @ts-ignore asset
 import doodleDark from "@/assets/SitReadingDoodleDark.svg";
 import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 import { useEffect } from "react";
@@ -12,7 +14,7 @@ const NotFound = () => {
 
   //   Title
   useEffect(() => {
-    document.title = `Not Found | Quizzer AI`;
+    document.title = `Not Found | HootLearn`;
   }, []);
 
   return (

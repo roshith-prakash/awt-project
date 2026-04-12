@@ -36,7 +36,7 @@ const NoteSelectModal = ({
 
   //  Page Title
   useEffect(() => {
-    document.title = "Your Notes | Quizzer AI";
+    document.title = "Your Notes | HootLearn";
   }, []);
 
   // Get number of files

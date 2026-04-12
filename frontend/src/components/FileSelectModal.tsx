@@ -54,7 +54,7 @@ const FileSelectModal = ({
 
   //  Page Title
   useEffect(() => {
-    document.title = "Your Files | Quizzer AI";
+    document.title = "Your Files | HootLearn";
   }, []);
 
   // Get number of files
