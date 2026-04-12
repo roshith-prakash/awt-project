@@ -182,6 +182,48 @@ export const getQuizzesCreatedByAUser = async (
   }
 };
 
+// Updates an existing quiz's content
+export const updateQuiz = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { userId, quizId, name, quizType, questions, isPublic } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      res.status(404).send({ data: "User not found." });
+      return;
+    }
+
+    const quiz = await prisma.quiz.findUnique({
+      where: { quizId, userId },
+    });
+
+    if (!quiz) {
+      res.status(404).send({ data: "Quiz not found / User is unauthorized." });
+      return;
+    }
+
+    // Update the quiz
+    const updatedQuiz = await prisma.quiz.update({
+      where: { id: quiz.id },
+      data: {
+        name: name || quiz.name,
+        quizType: quizType || quiz.quizType,
+        questions: questions || quiz.questions,
+        isPublic: isPublic !== undefined ? isPublic : quiz.isPublic,
+      },
+    });
+
+    res.status(200).send({ updatedQuiz });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ data: "Something went wrong." });
+  }
+};
+
 // Renames an existing quiz
 export const renameQuiz = async (
   req: Request,

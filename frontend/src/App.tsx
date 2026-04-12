@@ -20,6 +20,7 @@ import {
   AuthAction,
   Quizzes,
   Quiz,
+  QuizEditor,
 } from "./pages";
 import { useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -220,12 +221,32 @@ function App() {
                   }
                 />
 
-                {/* Displays a note (Allows to edit if you're the note owner) */}
+                {/* Displays a quiz */}
                 <Route
                   path="/quizzes/:quizId"
                   element={
                     <Protector>
                       <Quiz />
+                    </Protector>
+                  }
+                />
+ 
+                {/* Create a new quiz */}
+                <Route
+                  path="/quizzes/create"
+                  element={
+                    <Protector>
+                      <QuizEditor />
+                    </Protector>
+                  }
+                />
+ 
+                {/* Edit an existing quiz */}
+                <Route
+                  path="/quizzes/edit/:quizId"
+                  element={
+                    <Protector>
+                      <QuizEditor />
                     </Protector>
                   }
                 />

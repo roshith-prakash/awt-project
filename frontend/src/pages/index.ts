@@ -20,6 +20,7 @@ import Files from "./Files";
 import File from "./File";
 import Quizzes from "./Quizzes";
 import Quiz from "./Quiz";
+import QuizEditor from "./QuizEditor";
 
 export {
   Home,
@@ -45,4 +46,5 @@ export {
   File,
   Quizzes,
   Quiz,
+  QuizEditor,
 };

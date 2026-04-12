@@ -5,6 +5,7 @@ import {
   getQuizById,
   getQuizzesCreatedByAUser,
   renameQuiz,
+  updateQuiz,
 } from "../controllers/userquiz.controller.ts";
 import { Router } from "express";
 
@@ -33,6 +34,9 @@ router.post("/get-quiz-by-id", getQuizById);
 
 // Update a quiz's title
 router.post("/rename-quiz", renameQuiz);
+
+// Update a quiz's content
+router.post("/update-quiz", updateQuiz);
 
 // Delete a quiz (user ownership required)
 router.post("/delete-quiz", deleteQuiz);

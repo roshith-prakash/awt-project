@@ -97,7 +97,12 @@ const InputBox = ({
         name: quizTitle,
         userId: dbUser?.id,
         //@ts-expect-error possibly undefined but already checked
-        quizType: questions[0]?.options?.length > 0 ? "MCQ" : "Flashcard",
+        quizType:
+          title === "Fact Or Not"
+            ? "Fact or Not"
+            : questions[0]?.options?.length > 0
+            ? "MCQ"
+            : "Flashcard",
         isPublic: isPublic,
         questions: questions,
       })
@@ -513,9 +518,19 @@ const InputBox = ({
 
         {/* Fetching */}
         {questions && questions?.length > 0 && !isLoading && (
-          <p className="text-cta dark:text-darkmodetext font-medium animate-bounce mt-5 flex gap-x-2 items-center">
-            {!isFetching ? text : "Fetching new questions..."}
-          </p>
+          <div className="flex flex-col items-center gap-y-4 w-full mt-5">
+            <p className="text-cta dark:text-darkmodetext font-medium animate-bounce flex gap-x-2 items-center">
+              {!isFetching ? text : "Fetching new questions..."}
+            </p>
+            
+            <button
+              onClick={() => setIsSaveQuizModalOpen(true)}
+              className="group flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl shadow-lg transition-all hover:scale-105 active:scale-95"
+            >
+              <MdOutlineDataSaverOn className="text-2xl" />
+              <span className="font-semibold tracking-wide">Secure and Save this Quiz</span>
+            </button>
+          </div>
         )}
       </div>
     </div>

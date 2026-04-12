@@ -8,6 +8,7 @@ import {
 } from "../components";
 import {
   IoIosSearch,
+  IoMdAddCircleOutline,
   // , IoMdAddCircleOutline
 } from "react-icons/io";
 import { useInView } from "react-intersection-observer";
@@ -86,6 +87,17 @@ const QuizCard = ({
                 >
                   <FaTrash />
                   <span className="-translate-x-1">Delete</span>
+                </button>
+              </PopoverClose>
+              <PopoverClose>
+                <button
+                  onClick={() => {
+                    navigate(`/quizzes/edit/${quiz?.quizId}`);
+                  }}
+                  className="cursor-pointer hover:text-cta dark:hover:text-darkmodeCTA w-full flex items-center gap-x-2 justify-center hover:bg-grey/50 dark:hover:bg-grey/5 py-1.5 transition-all"
+                >
+                  <FaEye />
+                  Edit
                 </button>
               </PopoverClose>
               <PopoverClose>
@@ -408,18 +420,18 @@ const Quizzes = () => {
               </p>
             </div>
 
-            {/* Create a new note */}
-            {/* <SecondaryButton
-              disabled={numberOfNotes?.data?.noteCount == maxNumberOfNotes}
+            {/* Create a new quiz */}
+            <SecondaryButton
+              disabled={numberOfQuizzes?.data?.quizCount == maxNumberOfNotes}
               className="border-transparent dark:hover:!text-cta dark:disabled:hover:!text-gray-400 shadow-md"
               text={
                 <div className="flex gap-x-2 items-center">
                   <IoMdAddCircleOutline className="text-2xl" />
-                  <span className="text-nowrap">New Quiz</span>
+                  <span className="text-nowrap font-medium">New Quiz</span>
                 </div>
               }
-              onClick={createNote}
-            ></SecondaryButton> */}
+              onClick={() => navigate("/quizzes/create")}
+            ></SecondaryButton>
           </div>
 
           {/* Input box */}

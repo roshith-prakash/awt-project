@@ -16,6 +16,7 @@ import { useDBUser } from "@/context/UserContext";
 import { axiosInstance } from "@/utils/axios";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -268,6 +269,17 @@ const Quiz = () => {
                   <div className="py-1 min-w-32 flex flex-col gap-y-1">
                     <PopoverClose>
                       <button
+                        onClick={() => {
+                          navigate(`/quizzes/edit/${quizId}`);
+                        }}
+                        className="cursor-pointer hover:text-cta dark:hover:text-darkmodeCTA w-full flex items-center gap-x-2 justify-center hover:bg-grey/50 dark:hover:bg-grey/5 py-1.5 transition-all"
+                      >
+                        <Pen />
+                        Edit
+                      </button>
+                    </PopoverClose>
+                    <PopoverClose>
+                      <button
                         onClick={() => setIsDeleteModalOpen(true)}
                         className="cursor-pointer w-full flex items-center gap-x-3 justify-center hover:text-red-500 dark:hover:text-red-400 hover:bg-grey/50 dark:hover:bg-grey/5 py-1.5 transition-all"
                       >
@@ -294,9 +306,9 @@ const Quiz = () => {
           </div>
 
           <div className="flex flex-wrap gap-5 justify-center py-10">
-            {/* If quiz is of MCQ type */}
+            {/* If quiz is of MCQ or Fact or Not type */}
             {data?.data?.quiz?.questions?.length > 0 &&
-              data?.data?.quiz?.quizType == "MCQ" &&
+              (data?.data?.quiz?.quizType == "MCQ" || data?.data?.quiz?.quizType == "Fact or Not") &&
               data?.data?.quiz?.questions?.map(
                 (item: {
                   question: string;
@@ -335,7 +347,7 @@ const Quiz = () => {
 
           {/* Show Score */}
           {data?.data?.quiz?.questions?.length > 0 &&
-            data?.data?.quiz?.quizType == "MCQ" && (
+            (data?.data?.quiz?.quizType == "MCQ" || data?.data?.quiz?.quizType == "Fact or Not") && (
               <div className="flex justify-center">
                 <p className="font-medium bg-white dark:bg-darkbg dark:border-2 dark:border-white w-[95%] rounded-xl text-center border-2 p-5 text-lg md:text-2xl flex justify-center items-center gap-x-5">
                   {correctCount == data?.data?.quiz?.questions?.length && (
