@@ -17,10 +17,14 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 
-import { axiosInstance } from "@/utils/axiosInstance";
-import { isValidEmail, isValidPassword } from "../functions/regexFunctions";
+import { axiosInstance } from "@/utils/axios";
+import { isValidEmail, isValidPassword } from "@/utils/regexFunctions";
 import { FaGoogle } from "react-icons/fa6";
 import { useDBUser } from "@/context/UserContext";
+
+import doodle from "@/assets/ReadingSideDoodle.svg";
+import doodleDark from "@/assets/ReadingSideDoodleDark.svg";
+import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 
 const provider = new GoogleAuthProvider();
 
@@ -36,6 +40,8 @@ const Signup = () => {
     confirmpw: 0,
   });
 
+  const { isDarkMode } = useDarkMode() as ContextValue;
+
   const { dbUser } = useDBUser();
 
   if (dbUser) {
@@ -49,7 +55,7 @@ const Signup = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Sign up | Grid Manager";
+    document.title = "Sign up | Quizzer AI";
   }, []);
 
   // Handle Email Sign up
@@ -163,11 +169,11 @@ const Signup = () => {
 
   return (
     <>
-      <div className="lg:min-h-[89vh] flex w-full">
+      <div className="lg:min-h-[89vh] px-3 lg:px-8 flex gap-x-8 w-full">
         {/* Left Div */}
         <div className="min-h-[95vh] lg:h-full lg:min-h-[88vh] pb-10 bg-cover flex-1 flex justify-center items-center">
           {/* Sign up Form Div */}
-          <div className="bg-white dark:border-1 dark:border-white/25 dark:bg-secondarydarkbg max-w-xl dark:bg-darkgrey dark:text-darkmodetext border-darkbg/25 border-1 px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
+          <div className="bg-white dark:bg-white/5 max-w-xl dark:bg-darkgrey dark:text-darkmodetext px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
             {/* Title */}
             <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
               Create your account
@@ -183,10 +189,10 @@ const Signup = () => {
               <button
                 disabled={disabled}
                 onClick={handleGoogleSignup}
-                className="mt-8 dark:hover:border-white cursor-pointer hover:border-darkbg border-darkbg/25 dark:border-white/25 border-1 flex  gap-x-2 py-2 justify-center items-center px-14 shadow rounded-lg font-medium active:shadow transition-all"
+                className="mt-8 font-bold dark:hover:border-white cursor-pointer hover:border-darkbg border-darkbg/25 dark:border-white/25 border-1 flex  gap-x-2 py-2 justify-center items-center px-14 shadow rounded-lg  active:shadow transition-all"
               >
                 {disabled ? <p>Please Wait...</p> : <p>Sign up with Google</p>}
-                <FaGoogle className="text-xl translate-y-0.5" />
+                <FaGoogle className="text-xl" />
               </button>
             </div>
 
@@ -355,7 +361,7 @@ const Signup = () => {
                   disabledText="Please Wait..."
                   onClick={handleEmailSignup}
                   text={"Sign up"}
-                  className="w-full text-sm dark:hover:!bg-cta dark:hover:!border-cta bg-darkbg border-darkbg hover:!bg-darkbg/85 hover:!border-darkbg/85 hover:!scale-100 rounded-xl"
+                  className="w-full text-md rounded-xl"
                 />
               </div>
             </>
@@ -382,7 +388,8 @@ const Signup = () => {
         <div className="hidden lg:flex lg:flex-1  items-center justify-center">
           <img
             src={
-              "https://res.cloudinary.com/do8rpl9l4/image/upload/v1741164523/racecar_guyfno.svg"
+              // "https://res.cloudinary.com/do8rpl9l4/image/upload/v1741164523/racecar_guyfno.svg"
+              isDarkMode ? doodleDark : doodle
             }
             className="max-w-[90%]"
           />

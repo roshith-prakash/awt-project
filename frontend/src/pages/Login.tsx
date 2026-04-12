@@ -12,11 +12,15 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { isValidEmail, isValidPassword } from "@/functions/regexFunctions";
+import { isValidEmail, isValidPassword } from "@/utils/regexFunctions";
 import toast from "react-hot-toast";
-import { axiosInstance } from "@/utils/axiosInstance";
+import { axiosInstance } from "@/utils/axios";
 import { FaGoogle } from "react-icons/fa6";
 import { useDBUser } from "@/context/UserContext";
+
+import doodle from "@/assets/MessyDoodle.svg";
+import doodleDark from "@/assets/MessyDoodleDark.svg";
+import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 
 const provider = new GoogleAuthProvider();
 
@@ -31,6 +35,7 @@ const Login = () => {
   });
 
   const { dbUser } = useDBUser();
+  const { isDarkMode } = useDarkMode() as ContextValue;
 
   if (dbUser) {
     navigate("/");
@@ -43,7 +48,7 @@ const Login = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Sign in | Grid Manager";
+    document.title = "Sign in | Quizzer AI";
   }, []);
 
   // Login using email and password
@@ -164,12 +169,13 @@ const Login = () => {
 
   return (
     <>
-      <div className="lg:min-h-[89vh] flex w-full">
+      <div className="lg:min-h-[89vh] px-4 lg:px-8 flex gap-x-8 w-full">
         {/* Image Div - displayed only on laptop */}
         <div className="hidden lg:flex lg:flex-1 items-center justify-center">
           <img
             src={
-              "https://res.cloudinary.com/do8rpl9l4/image/upload/v1741164523/racecar2_kznips.svg"
+              // "https://res.cloudinary.com/do8rpl9l4/image/upload/v1741164523/racecar2_kznips.svg"
+              isDarkMode ? doodleDark : doodle
             }
             className="max-w-[70%]"
           />
@@ -178,10 +184,10 @@ const Login = () => {
         {/* Right Div */}
         <div className="min-h-[95vh] mt-5 lg:mt-0 lg:h-full lg:min-h-[88vh] pb-10 flex-1 flex justify-center items-center">
           {/* Login Form Div */}
-          <div className="bg-white dark:border-1 dark:border-white/25 dark:bg-secondarydarkbg max-w-xl dark:bg-darkgrey dark:text-darkmodetext border-darkbg/25 border-1 px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
+          <div className="bg-white dark:bg-white/5 max-w-xl dark:bg-darkgrey dark:text-darkmodetext px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
             {/* Title */}
             <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
-              Sign in to Grid Manager
+              Sign in to Quizzer AI
             </h1>
 
             {/* Subtitle */}
@@ -311,7 +317,7 @@ const Login = () => {
               </div>
 
               <Link
-                className="ml-4 text-sm text-blue-600 dark:text-blue-400 font-medium"
+                className="ml-4 text-sm text-cta dark:text-darkmodeCTA font-medium"
                 to="/forgot-password"
               >
                 Forgot your password?
@@ -324,7 +330,7 @@ const Login = () => {
                   disabledText="Please Wait..."
                   onClick={handleLogin}
                   text={"Sign in"}
-                  className="w-full text-sm dark:hover:!bg-cta dark:hover:!border-cta bg-darkbg border-darkbg hover:!bg-darkbg/85 hover:!border-darkbg/85 hover:!scale-100 rounded-xl"
+                  className="w-full text-md rounded-xl"
                 />
               </div>
             </>

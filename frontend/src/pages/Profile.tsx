@@ -1,100 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  PrimaryButton,
-  SecondaryButton,
-} from "../components";
+import { PrimaryButton, SecondaryButton } from "@/components";
 import { useDBUser } from "../context/UserContext";
 import { BsFillTrash3Fill, BsPen } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { TfiWrite } from "react-icons/tfi";
-import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance } from "../utils/axios";
 import { auth } from "../firebase/firebase";
 import { toast } from "react-hot-toast";
 import dayjs from "dayjs";
 import AlertModal from "@/components/reuseit/AlertModal";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
-import Avatar from "@/components/reuseit/Avatar";
+
+import banner from "@/assets/profileBackground1.png";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { dbUser, setDbUser } = useDBUser();
   const [disabled, setDisabled] = useState(false);
-  const [tabValue, setTabValue] = useState("teams");
   const [isDeleteProfileModalOpen, setIsDeleteProfileModalOpen] =
     useState(false);
-  const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteTeamModalOpen, setIsDeleteTeamModalOpen] = useState(false);
-  const [teamId, setTeamId] = useState("");
-
-  // Intersection observer to fetch new teams / leagues
-  const { ref, inView } = useInView();
-
-  // Fetch league data from server.
-  const { data: canUserCreateLeague } = useQuery({
-    queryKey: ["numberOfLeagues", dbUser?.id],
-    queryFn: async () => {
-      return axiosInstance.post("/team/check-if-user-can-join-league", {
-        userId: dbUser?.id,
-      });
-    },
-  });
-
-  // Fetching user's leagues
-  const {
-    data: leagues,
-    isLoading: loadingLeagues,
-    // error: leaguesError,
-    fetchNextPage: fetchNextLeagues,
-    // refetch: refetchLeagues,
-  } = useInfiniteQuery({
-    queryKey: ["userLeagues", dbUser?.username],
-    queryFn: ({ pageParam }) => {
-      return axiosInstance.post("/team/get-user-leagues", {
-        userId: dbUser?.id,
-        username: dbUser?.username,
-        page: pageParam,
-      });
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      return lastPage?.data?.nextPage;
-    },
-    enabled: !!dbUser?.username,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-  });
-
-  // Fetching user's teams
-  const {
-    data: teams,
-    isLoading: loadingTeams,
-    // error: teamsError,
-    fetchNextPage: fetchNextTeams,
-    refetch: refetchTeams,
-  } = useInfiniteQuery({
-    queryKey: ["userTeams", dbUser?.username],
-    queryFn: ({ pageParam }) => {
-      return axiosInstance.post("/team/get-user-teams", {
-        userId: dbUser?.id,
-        username: dbUser?.username,
-        page: pageParam,
-      });
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      return lastPage?.data?.nextPage;
-    },
-    enabled: !!dbUser?.username,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-  });
 
   // Set window title.
   useEffect(() => {
-    document.title = `${dbUser?.name} | Grid Manager`;
+    document.title = `${dbUser?.name} | Quizzer AI`;
   }, [dbUser]);
 
   // Scroll to top
@@ -139,41 +66,6 @@ const Profile = () => {
       });
   };
 
-  // Delete a selected team
-  const deleteTeam = () => {
-    setDisabled(true);
-    axiosInstance
-      .post("/team/delete-team", { teamId: teamId, userId: dbUser?.id })
-      .then(() => {
-        toast.success("Team Deleted.");
-        refetchTeams();
-        setDisabled(false);
-        setIsDeleteTeamModalOpen(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setDisabled(false);
-        setIsDeleteTeamModalOpen(false);
-        toast.error("Something went wrong.");
-      });
-  };
-
-  // Fetch next page when end div reached.
-  useEffect(() => {
-    if (tabValue == "teams") {
-      if (inView) {
-        fetchNextTeams();
-      }
-    }
-
-    if (tabValue == "leagues") {
-      if (inView) {
-        fetchNextLeagues();
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, fetchNextTeams, fetchNextLeagues]);
-
   return (
     <>
       {/* Delete Account Modal */}
@@ -214,23 +106,30 @@ const Profile = () => {
         </div>
       </AlertModal>
 
-
       {/* Main */}
       <div className="lg:min-h-screen bg-bgwhite dark:bg-darkbg dark:text-darkmodetext w-full pb-20">
         {/* Background color div */}
-        <div className="bg-secondarydarkbg dark:bg-darkgrey border-b-4 border-black h-48 dark:border-white/10"></div>
+        <div className="bg-secondarydarkbg overflow-hidden dark:bg-darkgrey border-b-4 border-black h-48 dark:border-white/10">
+          <img src={banner} className="object-cover" />
+        </div>
 
         {/* Profile Info Div */}
         <div className="bg-white dark:bg-secondarydarkbg dark:border-white/25 shadow-xl -translate-y-14 border-2 min-h-52 pt-20 pb-10 rounded-lg mx-5 md:mx-10 lg:mx-20">
           {/* Floating Image */}
-          <div className="absolute w-full -top-16 flex justify-center">
-            <div>
-              <Avatar
-                className="h-34 w-34 !text-5xl border-secondarydarkbg border-10"
-                imageSrc={dbUser?.photoURL}
-                fallBackText={dbUser?.name}
+          <div className="absolute w-full -top-18 flex justify-center">
+            {dbUser?.photoURL ? (
+              <img
+                src={dbUser?.photoURL}
+                className="bg-white  rounded-full h-36 w-36 border-8 border-white dark:border-secondarydarkbg dark:border-darkgrey pointer-events-none"
               />
-            </div>
+            ) : (
+              <img
+                src={
+                  "https://res.cloudinary.com/do8rpl9l4/image/upload/v1740987081/accountcircle_axsjlm.png"
+                }
+                className="bg-secondarydarkbg rounded-full h-36 w-36 border-8 border-white dark:border-secondarydarkbg dark:border-darkgrey pointer-events-none"
+              />
+            )}
           </div>
 
           {/* Edit & delete icon on small screen */}
@@ -272,14 +171,11 @@ const Profile = () => {
           </div>
 
           {/* Name, Username and Bio + Stat Count */}
-          <div className="px-2 pt-3">
-            {/* Name of the user */}
+          <div className="px-2">
             <p className="text-center text-3xl font-bold">{dbUser?.name}</p>
-            {/* Username of the user */}
             <p className="mt-2 text-center text-xl font-medium">
               @{dbUser?.username}
             </p>
-            {/* User's bio */}
             {dbUser?.bio && (
               <p className="px-4 my-10 text-md text-center">{dbUser?.bio}</p>
             )}
@@ -290,38 +186,9 @@ const Profile = () => {
 
           {/* Day of joining */}
           <div className="mt-5 text-greyText flex justify-center items-center gap-x-2">
-            <TfiWrite /> Became a Grid Manager on{" "}
+            <TfiWrite /> Became a Quizzer on{" "}
             {dayjs(new Date(dbUser?.createdAt)).format("MMM DD, YYYY")}.
           </div>
-        </div>
-
-        {/* Tab Buttons */}
-        <div className="flex">
-          {/* Teams Tab Button */}
-          <button
-            onClick={() => setTabValue("teams")}
-            className={`flex-1 py-3 cursor-pointer transition-all duration-300 border-b-4 ${
-              tabValue == "teams" &&
-              "text-cta border-cta dark:text-white dark:border-darkmodeCTA"
-            }`}
-          >
-            Teams
-          </button>
-          {/* Leagues Tab Button */}
-          <button
-            onClick={() => setTabValue("leagues")}
-            className={`flex-1 py-3 cursor-pointer transition-all duration-300 border-b-4  ${
-              tabValue == "leagues" &&
-              "text-cta border-cta dark:text-white dark:border-darkmodeCTA"
-            }`}
-          >
-            Leagues
-          </button>
-        </div>
-
-        {/* Tab Content */}
-        <div>
-          
         </div>
       </div>
     </>

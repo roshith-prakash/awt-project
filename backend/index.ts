@@ -3,11 +3,9 @@ import express, { NextFunction, Response } from "express";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import cors, { CorsOptions } from "cors";
-import { Server } from "socket.io";
 import { prisma } from "./utils/prismaClient.ts";
 import { redisClient } from "./utils/redis.ts";
 import rateLimit from "express-rate-limit";
-import { registerSocketEvents } from "./sockets/socketHandler.ts";
 import { dailyCredit } from "./constants/constants.ts";
 
 dotenv.config();
@@ -64,7 +62,7 @@ app.disable("x-powered-by");
 // Parses JSON passed inside body.
 app.use(express.json());
 // Enable CORS
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Routes -------------------------------------------------------------------------------------------
 
@@ -177,19 +175,6 @@ app.use("/api/v1/file", fileRouter);
 app.use("/api/v1/quiz", quizRouter);
 // User Quiz Routes
 app.use("/api/v1/user-quiz", userquizRouter);
-
-// Socket -----------------------------------------------------------------------------------------
-
-// Creating socket server
-const io = new Server(server, {
-  allowEIO3: true,
-  cors: {
-    origin: ["http://localhost:3000", "https://quizzer-ai.vercel.app"],
-    methods: ["GET", "POST"],
-  },
-});
-
-registerSocketEvents(io);
 
 // Listening on PORT -------------------------------------------------------------------------------------------
 

@@ -155,10 +155,10 @@ export const getNotesCreatedByAUser = async (
       take: 4,
     });
 
-    // Modify the content field to only include the first 150 characters
+    // Modify the content field to only include the first 500 characters
     const modifiedNotes = notes.map((note) => ({
       ...note,
-      content: note.content ? htmlToText(note.content).substring(0, 300) : "", // Fetch the first 150 chars of the content
+      content: note.content ? htmlToText(note.content).substring(0, 500) : "", // Fetch the first 150 chars of the content
     }));
 
     // Check if next page exists

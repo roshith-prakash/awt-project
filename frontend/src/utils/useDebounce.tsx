@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 // Hook to debounce user input
-const useDebounce = (value: string, delay: number = 1000) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const useDebounce = (value: any, delay: number = 1000) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   // Runs each time value is changed - clearing timeout if user is still typing & changing value only when user stops typing & one second has passed.

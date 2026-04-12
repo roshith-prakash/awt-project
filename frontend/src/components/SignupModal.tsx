@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PasswordInput from "./reuseit/PasswordInput";
 import { FaGoogle } from "react-icons/fa6";
 import toast from "react-hot-toast";
-import { axiosInstance } from "@/utils/axiosInstance";
+import { axiosInstance } from "@/utils/axios";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -13,7 +13,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useState } from "react";
-import { isValidEmail, isValidPassword } from "@/functions/regexFunctions";
+import { isValidEmail, isValidPassword } from "@/utils/regexFunctions";
 import { auth } from "@/firebase/firebase";
 import Input from "./reuseit/Input";
 
@@ -340,7 +340,7 @@ const SignupModal = ({
             disabledText="Please Wait..."
             onClick={handleEmailSignup}
             text={"Sign up"}
-            className="w-full text-sm dark:hover:!bg-cta dark:hover:!border-cta bg-darkbg border-darkbg hover:!bg-darkbg/85 hover:!border-darkbg/85 hover:!scale-100 rounded-xl"
+            className="w-full text-md rounded-xl"
           />
         </div>
       </>

@@ -1,31 +1,59 @@
 import dotenv from "dotenv";
 import { Request, Response } from "express";
 import axios from "axios";
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 import { prisma } from "../utils/prismaClient.ts";
 import { htmlToText } from "html-to-text";
 import { minCreditUsed, tokensPerCredit } from "../constants/constants.ts";
 
 dotenv.config();
 
-// Using OpenAI SDK to connect to OpenRouter
-const openai = new OpenAI({
-  apiKey: process.env.OPENROUTER_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
-});
+// Access your API key as an environment variable (see "Set up your API key" above)
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY });
 
-const model = "google/gemini-2.0-flash-001";
+const model = "gemini-3-flash-preview";
+
+// Helper to extract JSON from text that might contain markdown or extra conversational text
+const extractJSON = (text: string) => {
+  try {
+    // Try to find an array start '[' or object start '{'
+    const arrayStart = text.indexOf("[");
+    const objectStart = text.indexOf("{");
+    
+    // Determine which one comes first and find its corresponding end
+    let start = -1;
+    let end = -1;
+    
+    if (arrayStart !== -1 && (objectStart === -1 || arrayStart < objectStart)) {
+      start = arrayStart;
+      end = text.lastIndexOf("]");
+    } else if (objectStart !== -1) {
+      start = objectStart;
+      end = text.lastIndexOf("}");
+    }
+    
+    if (start === -1 || end === -1 || end < start) {
+      throw new Error("No valid JSON structure found in response");
+    }
+    
+    const jsonStr = text.substring(start, end + 1);
+    return JSON.parse(jsonStr);
+  } catch (error) {
+    console.error("JSON extraction failed. Original text length:", text.length);
+    console.debug("Raw response tail:", text.slice(-100));
+    throw error;
+  }
+};
 
 // To generate flashcards
 export const generateFlashcardQuestions = async (
   topic: string,
   difficulty: string,
   note: any,
-  file: any,
-  signal?: AbortSignal
+  file: any
 ) => {
   try {
-    const messages: any[] = [];
+    const contents: any = [];
 
     const prompt = `
     You are an expert quiz creator with a focus on generating high-quality, accurate, and informative quiz questions based on the topic ${topic}. Follow these guidelines to ensure the best results:
@@ -44,46 +72,44 @@ export const generateFlashcardQuestions = async (
   
     Provided that both are available, use both the text context data and the document to form the questions.
   
-    Your task: Generate 10 questions based on the content of the provided data. Format your output exactly as shown below:
-  
-    {"question": "Question here", "answer": "Answer here"}
-  
-    - Do not include any extra text or explanation.
-    - Ensure that each question adheres to the above guidelines for quality and relevance.
+    Your task: Generate exactly 10 questions based on the content of the provided data. 
+    You MUST return ONLY a valid JSON array of objects. Do not include markdown backticks, explanations, or any text outside the array.
+    
+    Format:
+    [
+      {"question": "Question 1", "answer": "Answer 1"},
+      ...
+      {"question": "Question 10", "answer": "Answer 10"}
+    ]
   `;
 
-    let contentArr: any[] = [{ type: "text", text: prompt }];
+    contents.push({ text: prompt });
 
     if (file) {
       console.log("Adding file to context");
-      // Note: passing PDF base64 to some OpenRouter models might require specific multimodal format or parsing to text first.
-      // Gemini 2.0 via OpenRouter supports pdf files via inline data similar to images in vision models if using 'image_url' with data URI, but Google API specific format might differ. We will send it as text if we expect base64 to fail, but Gemini 2.0 supports document. Since OpenAI SDK is used, we can format it as an image_url with application/pdf. Wait, the safest approach for cross-model compatibility if needed is extracting text, but we'll try sending the base64 as text or using the text. Wait, we will format it as a data uri.
-      contentArr.push({
-        type: "text",
-        text: "Here is the base64 encoded PDF document content. Please extract meaning from it: " + file
+      contents.push({
+        inlineData: {
+          mimeType: "application/pdf",
+          data: file,
+        },
       });
     }
 
     if (note) {
       console.log("Adding note to context");
-      contentArr.push({ type: "text", text: note });
+      contents.push({ text: note });
     }
 
-    messages.push({
-      role: "user",
-      content: contentArr,
+    // Only now make the AI request
+    const response = await ai.models.generateContent({
+      model: model,
+      contents: contents,
     });
 
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: messages,
-    }, { signal: signal as any });
-
-    const text = response.choices[0]?.message?.content;
+    const text = response.text;
 
     if (text) {
-      let JSONtext = text.replace(/```(?:json)?/g, "").replaceAll("`", "");
-      const jsonValues = JSON.parse(JSONtext);
+      const jsonValues = extractJSON(text);
       return { jsonValues };
     } else {
       throw Error("Could not generate a response");
@@ -92,17 +118,19 @@ export const generateFlashcardQuestions = async (
     console.log(
       "-------------------------------------------------------------------------------"
     );
+    // console.log(error, typeof error);
     console.log(
       "-------------------------------------------------------------------------------"
     );
 
-    const errStatus = error?.status;
-    const errCode = error?.code;
+    const errStatus = error?.error?.status || error?.status;
+    const errCode = error?.error?.code || error?.code;
 
     console.log(errCode, errStatus);
 
-    if (errCode === 503 || errStatus === 503) {
-      console.error("Model is overloaded. Retry later.");
+    if (errCode === 503 || errStatus === "UNAVAILABLE") {
+      console.error("Gemini is overloaded. Retry later.");
+      // Optionally:
       throw new Error("Service Unavailable. Please try again later.");
     } else {
       throw Error("Error in generating flashcard questions");
@@ -115,8 +143,6 @@ export const getFlashcards = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const abortController = new AbortController();
-  const signal = abortController.signal;
 
   try {
     const user = await prisma.user.findUnique({
@@ -136,6 +162,7 @@ export const getFlashcards = async (
     let note;
     let file;
 
+    // Step 1: Estimate token usage BEFORE AI call
     let totalTokensUsed = 0;
 
     if (fileId) {
@@ -193,14 +220,15 @@ export const getFlashcards = async (
       file = pdfBuffer.toString("base64");
     }
 
+    // Step 2: Actually generate flashcards
     const { jsonValues } = await generateFlashcardQuestions(
       topic,
       difficulty,
       note,
-      file,
-      signal
+      file
     );
 
+    // Deduct credits now
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -220,14 +248,8 @@ export const getFlashcards = async (
     res.status(200).send({ questions: jsonValues, creditsUsed: creditsNeeded });
     return;
   } catch (err) {
-    if (signal.aborted) {
-      console.log("Request aborted by client.");
-      return; 
-    }
-
     if (err == "Service Unavailable. Please try again later.") {
-      res.status(503).send({ error: "Model overload. Please try later" });
-      return;
+      res?.status(503).send({ error: "Model overload. Please try later" });
     }
 
     console.error("Error:", err);
@@ -240,11 +262,11 @@ export const generateMCQQuestions = async (
   topic: string,
   difficulty: string,
   note: any,
-  file: any,
-  signal?: AbortSignal
+  file: any
 ) => {
   try {
-    const messages: any[] = [];
+    const contents = [];
+    // Prompt to generate the MCQs
     const prompt = `
   You are an expert quiz creator with a focus on generating high-quality, accurate, and informative quiz questions based on the topic ${topic}. Follow these guidelines to ensure the best results:
 
@@ -262,49 +284,48 @@ export const generateMCQQuestions = async (
 
   Provided that both are available, use both the text context data and the document to form the questions.
 
-  Your task: Generate 10 questions based on the content of the provided data. Format your output exactly as shown below:
+  Your task: Generate exactly 10 questions based on the content of the provided data. 
+  You MUST return ONLY a valid JSON array of objects. Do not include markdown backticks, explanations, or any text outside the array.
 
-   {
-    "question": "Your question here",
-    "answer": "Correct answer here",
-    "options": ["Option A", "Option B", "Option C", "Option D"]
-  }
-
-  - Do not include any extra text or explanation.
-  - Ensure that each question adheres to the above guidelines for quality and relevance.
+  Format:
+  [
+    {
+      "question": "Your question here",
+      "answer": "Correct answer here",
+      "options": ["Option A", "Option B", "Option C", "Option D"]
+    },
+    ...
+  ]
 `;
 
-    let contentArr: any[] = [{ type: "text", text: prompt }];
+    contents.push({ text: prompt });
 
     if (file) {
       console.log("Adding file to context");
-      contentArr.push({
-        type: "text",
-        text: "Here is the base64 encoded PDF document content. Please extract meaning from it: " + file
+      contents.push({
+        inlineData: {
+          mimeType: "application/pdf",
+          data: file,
+        },
       });
     }
 
     if (note) {
       console.log("Adding note to context");
-      contentArr.push({ type: "text", text: note });
+      contents.push({ text: note });
     }
 
-    messages.push({
-      role: "user",
-      content: contentArr,
+    // Create content for the prompt using Gemini
+    const response = await ai.models.generateContent({
+      model: model,
+      contents: contents,
     });
 
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: messages,
-    }, { signal: signal as any });
-
-    const text = response.choices[0]?.message?.content;
+    // Convert response to text
+    const text = response.text;
 
     if (text) {
-      let JSONtext = text.replace(/```(?:json)?/g, "");
-      JSONtext = JSONtext.replaceAll("`", "");
-      const jsonValues = JSON.parse(JSONtext);
+      const jsonValues = extractJSON(text);
       return jsonValues;
     } else {
       throw Error("Could not generate a response");
@@ -317,9 +338,6 @@ export const generateMCQQuestions = async (
 
 // Wrapper function to be called by API
 export const getMCQs = async (req: Request, res: Response): Promise<void> => {
-  const abortController = new AbortController();
-  const signal = abortController.signal;
-
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.body.userId },
@@ -338,6 +356,7 @@ export const getMCQs = async (req: Request, res: Response): Promise<void> => {
     let note;
     let file;
 
+    // Step 1: Estimate token usage BEFORE AI call
     let totalTokensUsed = 0;
 
     if (fileId) {
@@ -399,10 +418,10 @@ export const getMCQs = async (req: Request, res: Response): Promise<void> => {
       topic,
       difficulty,
       note,
-      file,
-      signal
+      file
     );
 
+    // Deduct credits now
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -433,11 +452,11 @@ export const generateFactOrNotQuestions = async (
   topic: string,
   difficulty: string,
   note: any,
-  file: any,
-  signal?: AbortSignal
+  file: any
 ) => {
   try {
-    const messages: any[] = [];
+    const contents = [];
+    // Prompt to generate the fact or not questions
     const prompt = `
   You are an expert quiz creator with a focus on generating high-quality, accurate, and informative true/false quiz questions based on the topic ${topic}. Follow these guidelines to ensure the best results:
 
@@ -452,56 +471,54 @@ export const generateFactOrNotQuestions = async (
 
   Provided that both are available, use both the text context data and the document to form the questions.
 
-  Your task: Generate 10 fact-based questions using the structure below. Format your output exactly as shown:
+  Your task: Generate exactly 10 fact-based questions using the structure below. 
+  You MUST return ONLY a valid JSON array of objects. Do not include markdown backticks, explanations, or any text outside the array.
 
-  {
-    "question": "Your factual statement here",
-    "answer": "Fact" or "Not a fact",
-    "options": ["Fact", "Not a fact"],
-    "reason": "Brief explanation here"
-  }
-
-  - Do not include any extra text or explanation.
-  - Only generate Fact or Not a Fact type questions.
-  - Do not include multiple-choice, short-answer, or other question types.
+  Format:
+  [
+    {
+      "question": "Your factual statement here",
+      "answer": "Fact",
+      "options": ["Fact", "Not a fact"],
+      "reason": "Brief explanation here"
+    },
+    ...
+  ]
 `;
 
-    let contentArr: any[] = [{ type: "text", text: prompt }];
+    contents.push({ text: prompt });
 
     if (file) {
-      contentArr.push({
-        type: "text",
-        text: "Here is the base64 encoded PDF document content. Please extract meaning from it: " + file
+      contents.push({
+        inlineData: {
+          mimeType: "application/pdf",
+          data: file,
+        },
       });
     }
 
     if (note) {
-      contentArr.push({ type: "text", text: note });
+      contents.push({ text: note });
     }
 
-    messages.push({
-      role: "user",
-      content: contentArr,
+    // Create content for the prompt using Gemini
+    const response = await ai.models.generateContent({
+      model: model,
+      contents: contents,
     });
 
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: messages,
-    }, { signal: signal as any });
-
-    const text = response.choices[0]?.message?.content;
+    // Convert response to text
+    const text = response.text;
 
     if (text) {
-      let JSONtext = text.replace(/```(?:json)?/g, "");
-      JSONtext = JSONtext.replaceAll("`", "");
-      const jsonValues = JSON.parse(JSONtext);
+      const jsonValues = extractJSON(text);
       return jsonValues;
     } else {
       throw Error("Could not generate a response");
     }
   } catch (err) {
     console.log(err);
-    throw Error("Error in generating Fact or Not questions");
+    throw Error("Error in generating MCQ questions");
   }
 };
 
@@ -510,9 +527,6 @@ export const getFactOrNot = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const abortController = new AbortController();
-  const signal = abortController.signal;
-
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.body.userId },
@@ -531,6 +545,7 @@ export const getFactOrNot = async (
     let note;
     let file;
 
+    // Step 1: Estimate token usage BEFORE AI call
     let totalTokensUsed = 0;
 
     if (fileId) {
@@ -571,6 +586,7 @@ export const getFactOrNot = async (
       availableCredits
     );
 
+    // Check if user has enough credits
     if (availableCredits < creditsNeeded) {
       res
         .status(403)
@@ -578,6 +594,7 @@ export const getFactOrNot = async (
       return;
     }
 
+    // Fetch the file and convert to base64
     if (file) {
       const resFile = await axios.get(file.fileURL, {
         responseType: "arraybuffer",
@@ -592,10 +609,10 @@ export const getFactOrNot = async (
       topic,
       difficulty,
       note,
-      file,
-      signal
+      file
     );
 
+    // Deduct credits now
     await prisma.user.update({
       where: { id: user.id },
       data: {

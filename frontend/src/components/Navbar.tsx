@@ -7,22 +7,55 @@ import { ContextValue, useDarkMode } from "@/context/DarkModeContext";
 import { useDBUser } from "@/context/UserContext";
 import { auth } from "@/firebase/firebase";
 import { signOut } from "firebase/auth";
-import PrimaryButton from "./PrimaryButton";
-import SecondaryButton from "./SecondaryButton";
-import SignupModal from "../SignupModal";
-import LoginModal from "../LoginModal";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { PrimaryButton } from "@/components";
+import { SecondaryButton } from "@/components";
+import SignupModal from "./SignupModal";
+import LoginModal from "./LoginModal";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useAuth } from "@/context/AuthContext";
 import { RiAccountPinCircleLine } from "react-icons/ri";
 import { CgProfile, CgLogOut } from "react-icons/cg";
 import { FaUserPlus } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
-import { SiF1 } from "react-icons/si";
-import Avatar from "./Avatar";
-import AlertModal from "./AlertModal";
+import Avatar from "./reuseit/Avatar";
+import AlertModal from "./reuseit/AlertModal";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
-import logoDark from "@/assets/car-dark.png";
-import logo from "@/assets/car.png";
+const ListItem = ({
+  className,
+  title,
+  to,
+  onClick = () => {},
+  ...props
+}: {
+  className: string;
+  title: string;
+  to: string;
+  onClick?: () => void;
+}) => {
+  return (
+    <NavigationMenuLink onClick={onClick} asChild>
+      <Link
+        to={to}
+        className={cn(
+          "block w-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  focus:bg-accent focus:text-accent-foreground font-medium text-nowrap",
+          className
+        )}
+        {...props}
+      >
+        {title}
+      </Link>
+    </NavigationMenuLink>
+  );
+};
 
 const Navbar = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode() as ContextValue;
@@ -105,22 +138,24 @@ const Navbar = () => {
       />
 
       <nav
-        className={`dark:bg-darkbg relative z-2 flex items-center justify-between bg-white px-10 py-3 font-f1 dark:text-white`}
+        className={`dark:bg-darkbg relative z-2 flex items-center justify-between bg-whitebg px-10 py-3 font-title dark:text-white`}
       >
-        {/* Grid Manager */}
+        {/* Quizzer AI */}
         <Link to="/" aria-label="Home" className="flex gap-x-2 items-center">
           <img
-            src={isDarkMode ? logoDark : logo}
-            alt="Grid Manager"
-            className="h-8 cursor-pointer"
+            src={
+              "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427090/quiz_imfkoz.png"
+            }
+            alt="Quizzer AI"
+            className="h-10 pointer-events-none"
           />
-          <span className="hidden md:block font-semibold text-2xl">
-            Grid Manager
-          </span>
+          <p className="hidden md:block font-bold dark:text-darkmodetext  bg-gradient-to-t text-transparent tracking-wider bg-clip-text from-cta to-hovercta text-3xl">
+            Quizzer AI
+          </p>
         </Link>
 
         {/* LG screen links */}
-        <div className="hidden items-center -translate-x-14 gap-x-8 font-medium lg:flex">
+        <div className="hidden items-center text-2xl font-semibold -translate-x-10 gap-x-8  lg:flex">
           {/* Home Page */}
           <Link
             to="/"
@@ -132,17 +167,55 @@ const Navbar = () => {
           {dbUser ? (
             <>
               <Link
-                to="/leagues"
+                to="/notes"
                 className="hover:text-cta dark:hover:text-darkmodeCTA transition-all"
               >
-                Leagues
+                Notes
               </Link>
               <Link
-                to="/leaderboard"
+                to="/files"
                 className="hover:text-cta dark:hover:text-darkmodeCTA transition-all"
               >
-                Leaderboard
+                Files
               </Link>
+              {/* Pop-out menu to display quiz links */}
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-2xl font-semibold ">
+                      Quizzes
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="p-2 px-4">
+                      <ListItem
+                        to="/quizzes"
+                        title="Your Quizzes"
+                        className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                      ></ListItem>
+                      <ListItem
+                        to="/flashcard"
+                        title="FlashCard"
+                        className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                      ></ListItem>
+                      <ListItem
+                        to="/mcq"
+                        title="MCQ"
+                        className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                      ></ListItem>
+                      <ListItem
+                        to="/fact-or-not"
+                        title="Fact or Not"
+                        className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                      ></ListItem>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+              <button
+                onClick={() => setIsSignOutModalOpen(true)}
+                className="cursor-pointer hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+              >
+                Sign out
+              </button>
             </>
           ) : (
             <>
@@ -173,23 +246,6 @@ const Navbar = () => {
           >
             FAQ
           </Link>
-
-          {/* FAQ Page */}
-          <Link
-            to="/notices"
-            className="hover:text-cta dark:hover:text-darkmodeCTA transition-all"
-          >
-            Notices
-          </Link>
-
-          {dbUser && (
-            <button
-              onClick={() => setIsSignOutModalOpen(true)}
-              className="cursor-pointer hover:text-cta dark:hover:text-darkmodeCTA transition-all"
-            >
-              Sign out
-            </button>
-          )}
         </div>
 
         {/* Theme + Popover - Large Screen */}
@@ -212,7 +268,7 @@ const Navbar = () => {
                 {dbUser ? (
                   <Avatar
                     border
-                    borderClassName="bg-gradient-to-br from-darkmodeCTA via-cta to-hovercta"
+                    borderClassName="bg-gradient-to-br  from-[#ec8cff] to-cta"
                     imageSrc={dbUser?.photoURL}
                     fallBackText={dbUser?.name}
                   />
@@ -227,12 +283,24 @@ const Navbar = () => {
                     <>
                       <Link
                         to="/profile"
-                        className={`flex flex-col gap-y-2 font-medium text-cta dark:text-darkmodeCTA  hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey hover:text-hovercta dark:hover:text-cta text-lg py-2 px-5 rounded  w-full transition-all`}
+                        className={`flex flex-col gap-y-2 font-medium  hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey hover:text-hovercta dark:hover:text-cta text-lg py-2 px-5 rounded  w-full transition-all`}
                       >
                         <p className="text-center">{dbUser?.name}</p>
                         <p className="text-center">@{dbUser?.username}</p>
                       </Link>
 
+                      <hr />
+                    </>
+                  )}
+
+                  {dbUser && (
+                    <>
+                      <div className="flex py-2 px-3 font-medium justify-between">
+                        <p className="pl-3 text-center">Credits</p>
+                        <p className="text-center text-black/70 dark:text-white/75">
+                          {dbUser?.dailyCredit + dbUser?.bonusCredit}
+                        </p>
+                      </div>
                       <hr />
                     </>
                   )}
@@ -250,23 +318,6 @@ const Navbar = () => {
                       >
                         <CgProfile className="text-xl" />
                         Edit Profile
-                      </NavLink>
-                      <hr />
-                    </>
-                  )}
-
-                  {dbUser && (
-                    <>
-                      <NavLink
-                        to="/create-league"
-                        className={({ isActive }) =>
-                          `flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey w-full transition-all ${
-                            isActive && "bg-slate-100 dark:bg-white/20"
-                          }`
-                        }
-                      >
-                        <SiF1 className="text-xl" />
-                        Create League
                       </NavLink>
                       <hr />
                     </>
@@ -292,38 +343,46 @@ const Navbar = () => {
 
                   {/* Log Out */}
                   {currentUser && (
-                    <button
-                      onClick={() => setIsSignOutModalOpen(true)}
+                    <NavLink
+                      to="/signout"
                       className="cursor-pointer flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey w-full transition-all"
                     >
                       <PiSignOutFill className="text-xl" />
                       Sign out
-                    </button>
+                    </NavLink>
                   )}
 
                   {/* Sign up */}
                   {!currentUser && (
                     <>
-                      <button
-                        onClick={() => setIsSignUpModalOpen(true)}
-                        className={`cursor-pointer flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey  w-full transition-all `}
+                      <NavLink
+                        to="/signup"
+                        className={({ isActive }) =>
+                          `flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey  w-full transition-all ${
+                            isActive && "bg-slate-100 dark:bg-white/20"
+                          }`
+                        }
                       >
                         <FaUserPlus className="text-xl" />
                         Sign up
-                      </button>
+                      </NavLink>
                       <hr />
                     </>
                   )}
 
                   {/* Log in */}
                   {!currentUser && (
-                    <button
-                      onClick={() => setIsLoginModalOpen(true)}
-                      className={`cursor-pointer flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey  w-full transition-all `}
+                    <NavLink
+                      to="/signin"
+                      className={({ isActive }) =>
+                        `flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey w-full transition-all ${
+                          isActive && "bg-slate-100 dark:bg-white/20"
+                        }`
+                      }
                     >
                       <CgLogOut className="text-xl rotate-180" />
                       Sign in
-                    </button>
+                    </NavLink>
                   )}
                 </div>
               </PopoverContent>
@@ -367,12 +426,24 @@ const Navbar = () => {
                   <>
                     <Link
                       to="/profile"
-                      className={`flex flex-col gap-y-2 font-medium text-cta dark:text-darkmodeCTA  hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey hover:text-hovercta dark:hover:text-cta text-lg py-2 px-5 rounded  w-full transition-all`}
+                      className={`flex flex-col gap-y-2 font-medium   hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey hover:text-hovercta dark:hover:text-cta text-lg py-2 px-5 rounded  w-full transition-all`}
                     >
                       <p className="text-center">{dbUser?.name}</p>
                       <p className="text-center">@{dbUser?.username}</p>
                     </Link>
 
+                    <hr />
+                  </>
+                )}
+
+                {dbUser && (
+                  <>
+                    <div className="flex py-2 px-3 font-medium justify-between">
+                      <p className="pl-3 text-center">Credits</p>
+                      <p className="text-center text-black/70 dark:text-white/75">
+                        {dbUser?.dailyCredit + dbUser?.bonusCredit}
+                      </p>
+                    </div>
                     <hr />
                   </>
                 )}
@@ -390,23 +461,6 @@ const Navbar = () => {
                     >
                       <CgProfile className="text-xl" />
                       Edit Profile
-                    </NavLink>
-                    <hr />
-                  </>
-                )}
-
-                {dbUser && (
-                  <>
-                    <NavLink
-                      to="/create-league"
-                      className={({ isActive }) =>
-                        `flex gap-x-5 items-center font-medium text-lg py-2 px-5 rounded hover:bg-slate-50 dark:hover:bg-white/10 dark:hover:bg-darkgrey w-full transition-all ${
-                          isActive && "bg-slate-100 dark:bg-white/20"
-                        }`
-                      }
-                    >
-                      <SiF1 className="text-xl" />
-                      Create League
                     </NavLink>
                     <hr />
                   </>
@@ -485,7 +539,7 @@ const Navbar = () => {
 
         {/* Drawer Menu */}
         <div
-          className={`dark:bg-darkbg scroller fixed top-0 right-0 z-50 h-screen w-full overflow-y-auto bg-white pb-6 text-center text-xl shadow-md md:text-lg ${
+          className={`dark:bg-darkbg scroller fixed top-0 right-0 z-50 h-screen w-full overflow-y-auto bg-whitebg pb-6 text-center text-xl shadow-md md:text-lg ${
             open ? "translate-x-0" : "translate-x-[100%]"
           } transition-all duration-500`}
           role="dialog"
@@ -499,11 +553,15 @@ const Navbar = () => {
               aria-label="Home"
             >
               <img
-                src={isDarkMode ? logoDark : logo}
-                alt="Grid Manager"
-                className="h-8 cursor-pointer"
+                src={
+                  "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736427090/quiz_imfkoz.png"
+                }
+                alt="Quizzer AI"
+                className="h-10 pointer-events-none"
               />
-              <span className="font-semibold text-2xl">Grid Manager</span>
+              <p className="font-bold dark:text-darkmodetext  bg-gradient-to-t text-transparent tracking-wider bg-clip-text from-cta to-hovercta text-3xl">
+                Quizzer AI
+              </p>
             </button>
             <RxCross2
               onClick={() => setOpen(false)}
@@ -512,11 +570,11 @@ const Navbar = () => {
             />
           </div>
 
-          <div className="mt-20 flex flex-col items-center justify-between gap-y-12 px-8 text-xl font-medium">
+          <div className="mt-20 flex flex-col text-2xl tracking-wide font-medium items-center justify-between gap-y-12 px-8">
             {/*  Add your links here */}
             <button
               onClick={() => handleSearch("/")}
-              className="hover:text-cta w-fit cursor-pointer transition-all"
+              className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
               tabIndex={0}
               aria-label="Go to Home"
             >
@@ -526,27 +584,71 @@ const Navbar = () => {
             {dbUser ? (
               <>
                 <button
-                  onClick={() => handleSearch("/leagues")}
-                  className="hover:text-cta w-fit cursor-pointer transition-all"
+                  onClick={() => handleSearch("/notes")}
+                  className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
                   tabIndex={0}
-                  aria-label="Leagues"
+                  aria-label="Notes"
                 >
-                  Leagues
+                  Notes
                 </button>
                 <button
-                  onClick={() => handleSearch("/leaderboard")}
-                  className="hover:text-cta w-fit cursor-pointer transition-all"
+                  onClick={() => handleSearch("/files")}
+                  className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
                   tabIndex={0}
-                  aria-label="Leaderboard"
+                  aria-label="Files"
                 >
-                  Leaderboard
+                  Files
+                </button>
+                {/* Pop-out menu to display quiz links */}
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger className="text-2xl font-medium ">
+                        Quizzes
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent className="p-2 px-4">
+                        <ListItem
+                          onClick={() => setOpen(false)}
+                          to="/quizzes"
+                          title="Your Quizzes"
+                          className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                        ></ListItem>
+                        <ListItem
+                          onClick={() => setOpen(false)}
+                          to="/flashcard"
+                          title="FlashCard"
+                          className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                        ></ListItem>
+                        <ListItem
+                          onClick={() => setOpen(false)}
+                          to="/mcq"
+                          title="MCQ"
+                          className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                        ></ListItem>
+                        <ListItem
+                          onClick={() => setOpen(false)}
+                          to="/fact-or-not"
+                          title="Fact or Not"
+                          className="!text-2xl font-semibold text-center hover:text-cta dark:hover:text-darkmodeCTA transition-all"
+                        ></ListItem>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+                <button
+                  onClick={() => handleSearch("/signout")}
+                  className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
+                  tabIndex={0}
+                  aria-label="Sign out"
+                >
+                  Sign out
                 </button>
               </>
             ) : (
               <>
                 <button
                   onClick={() => handleSearch("/signup")}
-                  className="hover:text-cta w-fit cursor-pointer transition-all"
+                  className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
                   tabIndex={0}
                   aria-label="Sign up"
                 >
@@ -554,7 +656,7 @@ const Navbar = () => {
                 </button>{" "}
                 <button
                   onClick={() => handleSearch("/signin")}
-                  className="hover:text-cta w-fit cursor-pointer transition-all"
+                  className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
                   tabIndex={0}
                   aria-label="Sign in"
                 >
@@ -565,32 +667,12 @@ const Navbar = () => {
 
             <button
               onClick={() => handleSearch("/faq")}
-              className="hover:text-cta w-fit cursor-pointer transition-all"
+              className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
               tabIndex={0}
               aria-label="FAQ Page"
             >
               FAQ
             </button>
-
-            <button
-              onClick={() => handleSearch("/notices")}
-              className="hover:text-cta w-fit cursor-pointer transition-all"
-              tabIndex={0}
-              aria-label="Notices Page"
-            >
-              Notices
-            </button>
-
-            {dbUser && (
-              <button
-                onClick={() => handleSearch("/signout")}
-                className="hover:text-cta w-fit cursor-pointer transition-all"
-                tabIndex={0}
-                aria-label="Sign out"
-              >
-                Sign out
-              </button>
-            )}
           </div>
 
           {/* Footer Text   */}

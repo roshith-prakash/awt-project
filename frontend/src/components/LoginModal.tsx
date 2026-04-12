@@ -1,18 +1,18 @@
 import Modal from "./reuseit/Modal";
 import PrimaryButton from "./reuseit/PrimaryButton";
-import ErrorStatement from "./ErrorStatement";
+import { ErrorStatement } from "@/components";
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "./reuseit/PasswordInput";
 import { FaGoogle } from "react-icons/fa6";
 import toast from "react-hot-toast";
-import { axiosInstance } from "@/utils/axiosInstance";
+import { axiosInstance } from "@/utils/axios";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { useState } from "react";
-import { isValidEmail, isValidPassword } from "@/functions/regexFunctions";
+import { isValidEmail, isValidPassword } from "@/utils/regexFunctions";
 import { auth } from "@/firebase/firebase";
 import Input from "./reuseit/Input";
 
@@ -164,7 +164,7 @@ const LoginModal = ({
     >
       {/* Title */}
       <h1 className="dark:text-darkmodetext pt-5 font-bold text-xl text-center">
-        Sign in to Grid Manager
+        Sign in to Quizzer AI
       </h1>
 
       {/* Subtitle */}
@@ -291,7 +291,7 @@ const LoginModal = ({
         </div>
 
         <button
-          className="ml-4 text-sm text-blue-600 dark:text-blue-400 font-medium cursor-pointer"
+          className="ml-4 text-sm text-cta dark:text-darkmodeCTA font-medium cursor-pointer"
           onClick={() => {
             setIsModalOpen();
             navigate("/forgot-password");
@@ -307,7 +307,7 @@ const LoginModal = ({
             disabledText="Please Wait..."
             onClick={handleLogin}
             text={"Sign in"}
-            className="w-full text-sm dark:hover:!bg-cta dark:hover:!border-cta bg-darkbg border-darkbg hover:!bg-darkbg/85 hover:!border-darkbg/85 hover:!scale-100 rounded-xl"
+            className="w-full text-md rounded-xl"
           />
         </div>
       </>

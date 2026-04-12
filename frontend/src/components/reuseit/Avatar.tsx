@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 const Avatar = ({
@@ -5,7 +6,7 @@ const Avatar = ({
   fallBackText,
   className,
   border = false,
-  borderClassName,
+  borderClassName = "border-4 border-cta",
 }: {
   imageSrc?: string;
   fallBackText?: string;
@@ -37,36 +38,33 @@ const Avatar = ({
 
   return (
     <div
-      className={`${
-        border &&
-        ` ${borderClassName} flex items-center justify-center rounded-full`
-      } w-fit p-1`}
+      className={cn(
+        `${
+          border &&
+          `flex items-center justify-center rounded-full ${borderClassName}`
+        } 5 w-fit p-1`,
+      )}
     >
       {isValid ? (
         <img
           src={imageSrc}
           alt={fallBackText}
-          className={` ${
-            border &&
-            `dark:border-secondarydarkbg border-2 border-white ${borderClassName} `
-          } h-10 w-10 rounded-full ${className}`}
+          className={cn(`h-10 w-10 rounded-full ${className}`)}
         />
       ) : fallBackText ? (
         <p
-          className={`${
-            border &&
-            `dark:border-secondarydarkbg ${borderClassName} border-2 border-white`
-          }  from-darkmodeCTA via-cta to-hovercta flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br text-lg font-semibold text-white ${className}`}
+          className={cn(
+            `from-darkmodeCTA via-cta to-hovercta flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br text-lg font-semibold text-white ${className}`,
+          )}
         >
           {extractFirstLetters(fallBackText)}
         </p>
       ) : (
         <img
           src={"https://randomuser.me/api/portraits/lego/2.jpg"}
-          className={` ${
-            border &&
-            ` dark:border-secondarydarkbg border-2 border-white ${borderClassName} `
-          } bg-darkbg dark:bg-white object-contain h-10 w-10 rounded-full ${className}`}
+          className={cn(
+            `bg-darkbg h-10 w-10 rounded-full object-contain dark:bg-white ${className}`,
+          )}
         />
       )}
     </div>

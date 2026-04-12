@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { SecondaryButton } from "@/components";
+import { auth } from "@/firebase/firebase";
+import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebase/firebase";
-import { LogOut, ArrowLeft, AlertTriangle } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const Signout = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+
+  // Firebase User.
+  const { currentUser } = useAuth();
 
   // Scroll to the top of page
   useEffect(() => {
@@ -16,89 +18,75 @@ const Signout = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Sign out | Grid Manager";
+    document.title = "Sign out | Quizzer AI";
   }, []);
 
-  const handleLogout = async () => {
-    setIsLoading(true);
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-md mx-auto">
-        {/* Card Container */}
-        <div className="bg-white dark:bg-white/5 rounded-2xl shadow-xl border border-slate-200 dark:border-white/5 p-8 text-center">
-          {/* Icon */}
-          <div className="w-14 h-14 bg-cta/10 dark:bg-cta/30 rounded-full flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-8 h-8 -translate-y-0.5 text-cta dark:cta" />
+  // If user hasn't signed in using firebase
+  if (!currentUser) {
+    return (
+      <div className="dark:bg-darkbg dark:text-darkmodetext h-screen">
+        <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
+          <div>
+            {/* Title for page */}
+            <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
+              You have not signed in!
+            </p>
+            <div className="mt-10 flex flex-col gap-10 justify-center items-center">
+              {/* Image */}
+              <img
+                src={
+                  "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
+                }
+                className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
+              />
+              {/* Button to navigate back to home page */}
+              <div>
+                <SecondaryButton
+                  onClick={() => navigate("/signup")}
+                  text="Sign up"
+                />
+              </div>
+            </div>
           </div>
-
-          {/* Title */}
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-            Sign Out Confirmation
-          </h1>
-
-          {/* Description */}
-          <p className="text-slate-600 dark:text-slate-400 mb-8">
-            Are you sure you want to sign out of your Grid Manager account?
-            You'll need to sign in again to access your teams and leagues.
-          </p>
-
-          {/* Image */}
-          <div className="mb-8">
-            <img
-              src="https://res.cloudinary.com/do8rpl9l4/image/upload/v1736741825/signout_xm5pl2.svg"
-              alt="Sign out illustration"
-              className="max-w-[60%] mx-auto pointer-events-none"
-            />
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col-reverse sm:flex-row gap-3">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex-1 cursor-pointer flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-300 rounded-lg transition-colors font-medium"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Cancel
-            </button>
-
-            <button
-              onClick={handleLogout}
-              disabled={isLoading}
-              className="flex-1 cursor-pointer flex items-center justify-center gap-2 px-4 py-3 bg-cta hover:bg-hovercta text-white rounded-lg transition-colors font-medium disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  Signing Out...
-                </>
-              ) : (
-                <>
-                  <LogOut className="w-4 h-4" />
-                  Sign Out
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Additional Info */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Your data will be saved and available when you sign back in.
-          </p>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="min-h-[89vh] py-16 gap-10 flex flex-col justify-center items-center pb-24">
+        {/* Title */}
+        <h1 className="text-3xl lg:text-4xl font-medium">
+          Do you want to sign out?
+        </h1>
+        {/* Image */}
+        <img
+          src={
+            "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736741825/signout_xm5pl2.svg"
+          }
+          className="max-w-[35%] -translate-x-2 lg:max-w-[20%] pointer-events-none"
+        />
+        {/* Button to log out */}
+        <div>
+          <SecondaryButton
+            className="px-10"
+            onClick={handleLogout}
+            text={"Sign Out"}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

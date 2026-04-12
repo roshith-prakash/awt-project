@@ -12,9 +12,14 @@ import { sendEmailVerification, User } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { auth } from "../firebase/firebase";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { axiosInstance } from "@/utils/axiosInstance";
-import { isValidUsername } from "../functions/regexFunctions";
+import { axiosInstance } from "@/utils/axios";
+import { isValidUsername } from "@/utils/regexFunctions";
 import { MdOutlineAccountCircle } from "react-icons/md";
+
+import Cropper from "react-easy-crop";
+import getCroppedImg from "../utils/cropImage"; // (You'll add this util below)
+import Modal from "@/components/reuseit/Modal"; // optional: modal component for cropping
+import { compressImage } from "@/utils/compressImage";
 
 const Onboarding = () => {
   // Navigate function to navigate to different pages.
@@ -39,6 +44,13 @@ const Onboarding = () => {
     username: 0,
   });
 
+  // Image Crop States
+  const [showCropper, setShowCropper] = useState(false);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   // Scroll to the top of page
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -46,7 +58,7 @@ const Onboarding = () => {
 
   // Set window title.
   useEffect(() => {
-    document.title = "Onboarding | Grid Manager";
+    document.title = "Onboarding | Quizzer AI";
   }, []);
 
   // To set default values.
@@ -60,11 +72,15 @@ const Onboarding = () => {
   // Set the received image in the state.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileChange = (e: any) => {
-    if (fileRef?.current) {
-      setImage(e.target.files[0]);
-      // @ts-expect-error Null must be set so that the fileRef is usable again
-      fileRef.current.value = null;
-    }
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setSelectedFile(file);
+    setShowCropper(true);
+
+    // Clear input
+    // @ts-expect-error null
+    if (fileRef?.current) fileRef.current.value = null;
   };
 
   // To resend email verification link.
@@ -112,7 +128,7 @@ const Onboarding = () => {
     // Check if username is already in use.
     axiosInstance
       .post("/user/check-username", { username: username?.toLowerCase() })
-      .then((res) => {
+      .then(async (res) => {
         // If username already exists - show an error
         if (res.data?.exists) {
           setDisabled(false);
@@ -126,7 +142,8 @@ const Onboarding = () => {
 
           // If image is added - add a file
           if (typeof image != "string") {
-            formData.append("file", image);
+            const compressedFile = await compressImage(image);
+            formData.append("file", compressedFile);
           }
 
           // Add details in the user object
@@ -277,6 +294,45 @@ const Onboarding = () => {
   // If onboarding process was left.
   return (
     <div>
+      {showCropper && selectedFile && (
+        <Modal
+          className="px-0 py-0 pb-5"
+          isOpen={showCropper}
+          onClose={() => setShowCropper(false)}
+        >
+          <div className="relative w-full h-[400px] bg-black">
+            <Cropper
+              image={URL.createObjectURL(selectedFile)}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={(_, croppedAreaPixels) => {
+                // @ts-expect-error type issue with state
+                setCroppedAreaPixels(croppedAreaPixels);
+              }}
+            />
+          </div>
+          <div className="flex justify-end px-5 gap-4 mt-4">
+            <PrimaryButton
+              onClick={async () => {
+                const croppedImage = await getCroppedImg(
+                  URL.createObjectURL(selectedFile),
+                  croppedAreaPixels
+                );
+                setImage(croppedImage);
+                setShowCropper(false);
+              }}
+              text="Crop & Use"
+            ></PrimaryButton>
+            <SecondaryButton
+              text="Cancel"
+              onClick={() => setShowCropper(false)}
+            ></SecondaryButton>
+          </div>
+        </Modal>
+      )}
       <div className=" min-h-[70vh] md:min-h-[65vh] lg:min-h-[60vh] flex items-center justify-center pt-12 pb-20">
         <div className="bg-white dark:bg-secondarydarkbg w-full dark:bg-darkgrey dark:text-darkmodetext border-[1px] max-w-[95%] md:max-w-3xl md:mt-5 lg:mt-5 p-5 md:px-20 shadow-xl rounded-xl pb-10">
           {/* Title */}
@@ -310,6 +366,7 @@ const Onboarding = () => {
                 />
               ) : (
                 <MdOutlineAccountCircle className="text-[8rem]" />
+                // <img src={defaultAccount} className="h-24 w-24 rounded-full" />
               )}
             </div>
             <button

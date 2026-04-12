@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAuth, confirmPasswordReset } from "firebase/auth";
 import { ErrorStatement, PasswordInput, PrimaryButton } from "@/components";
-import { isValidPassword } from "@/functions/regexFunctions";
+import { isValidPassword } from "@/utils/regexFunctions";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 

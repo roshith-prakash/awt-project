@@ -1,23 +1,33 @@
+import FlashCard from "./FlashCard";
+import Navbar from "./Navbar";
+import ErrorStatement from "./ErrorStatement";
+import MCQ from "./MCQ";
+import InputBox from "./InputBox";
+import Timer from "./Timer";
+import GoUpButton from "./GoUpButton";
+import Footer from "./Footer";
+
+// REUSEIT
 import PrimaryButton from "./reuseit/PrimaryButton";
 import SecondaryButton from "./reuseit/SecondaryButton";
 import Input from "./reuseit/Input";
 import PasswordInput from "./reuseit/PasswordInput";
-import Navbar from "./reuseit/Navbar";
-import Footer from "./reuseit/Footer";
-import ErrorStatement from "./ErrorStatement";
-import SignupModal from "./SignupModal";
-import LoginModal from "./LoginModal";
-import Protector from "./Protector";
+import Countdown from "./Countdown";
 
 export {
+  FlashCard,
+  Navbar,
+  ErrorStatement,
+  MCQ,
+  InputBox,
+  Timer,
+  GoUpButton,
+  Footer,
+
+  // -----------
   PrimaryButton,
   SecondaryButton,
   Input,
   PasswordInput,
-  Navbar,
-  Footer,
-  ErrorStatement,
-  SignupModal,
-  LoginModal,
-  Protector,
+  Countdown,
 };

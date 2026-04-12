@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { isValidEmail } from "@/functions/regexFunctions";
+import { isValidEmail } from "@/utils/regexFunctions";
 import { ErrorStatement, Input, PrimaryButton } from "@/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDBUser } from "@/context/UserContext";

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useState, ReactNode } from "react";
 
 const AlertModal = ({
@@ -37,15 +38,17 @@ const AlertModal = ({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-darkbg/80 transition-opacity ${
+      className={`bg-darkbg/80 fixed inset-0 z-50 flex items-center justify-center transition-opacity ${
         isClosing ? "opacity-0" : "opacity-100"
       }`}
     >
       {/* When isClosing is true, fadeOut animation is added to AlertModal */}
       <div
-        className={`dark:bg-secondarydarkbg scroller ${
-          isClosing ? "animate-fadeOut" : "animate-fadeIn"
-        } relative max-h-[90%] w-auto max-w-[95%] min-w-xs overflow-y-auto rounded-xl bg-white p-6 shadow-xl  md:min-w-sm dark:border-3 dark:border-white/25 ${className}`}
+        className={cn(
+          `dark:bg-secondarydarkbg scroller ${
+            isClosing ? "animate-fadeOut" : "animate-fadeIn"
+          } relative max-h-[90%] w-auto max-w-[95%] min-w-xs overflow-y-auto rounded-xl bg-white p-6 shadow-xl md:min-w-sm dark:border-3 dark:border-white/25 ${className}`,
+        )}
       >
         {children}
       </div>

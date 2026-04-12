@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useState, MouseEvent, ReactNode } from "react";
 
 const Modal = ({
@@ -50,16 +51,18 @@ const Modal = ({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-darkbg/80 transition-opacity ${
+      className={`dark:bg-darkbg/80 fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity ${
         isClosing ? "opacity-0" : "opacity-100"
       }`}
       onClick={handleBackdropClick}
     >
       {/* When isClosing is true, fadeOut animation is added to Modal */}
       <div
-        className={`dark:bg-secondarydarkbg scroller ${
-          isClosing ? "animate-fadeOut" : "animate-fadeIn"
-        } relative max-h-[90%] w-auto max-w-[95%] min-w-xs overflow-y-auto rounded-xl bg-white p-6 shadow-xl md:max-w-2xl md:min-w-sm dark:border-3 dark:border-white/25 ${className}`}
+        className={cn(
+          `dark:bg-secondarydarkbg scroller ${
+            isClosing ? "animate-fadeOut" : "animate-fadeIn"
+          } relative max-h-[90%] w-auto max-w-[95%] min-w-xs overflow-y-auto rounded-xl bg-white p-6 shadow-xl md:max-w-2xl md:min-w-sm dark:border-3 dark:border-white/25 ${className}`,
+        )}
       >
         {children}
       </div>
