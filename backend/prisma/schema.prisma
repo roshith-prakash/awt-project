@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Schema for user
+model User {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  // UID received from firebase
+  firebaseUID String     @unique
+  // Username for the user - must be unique.
+  username    String?    @unique
+  // Name of the user
+  name        String?
+  // User's Email address
+  email       String     @unique
+  // User's Display picture link
+  photoURL    String?    @default("")
+  // User's files
+  userFiles   Userfile[]
+  // User's notes
+  notes       Note[]
+  // User's quizzes
+  quizzes     Quiz[]
+  // Daily AI Credit
+  dailyCredit Float      @default(0)
+  // Purchased AI Credit
+  bonusCredit Float      @default(0)
+  // Created & updated times
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// To store metadata about the files uploaded by the user
+model Userfile {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  // Format of the file
+  format     String
+  // ID of the asset
+  assetId    String   @unique
+  // Public id of the file
+  publicId   String
+  // File URL
+  fileURL    String
+  // Name of the file
+  fileName   String
+  // Size of the PDF as base 64
+  base64size Int      @default(0)
+  // User to which the file belongs
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @db.ObjectId
+  // Created & updated times
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// To store notes created by the user
+model Note {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  // Id of the note
+  noteId       String        @unique
+  // Content of the note
+  content      String?
+  // Title of the string
+  title        String?
+  // Is note public?
+  isPublic     Boolean       @default(false)
+  // User to which the file belongs
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String        @db.ObjectId
+  // Created & updated times
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  noteVersions NoteVersion[]
+}
+
+// Note versions to keep track of changes in the note
+model NoteVersion {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  noteId    String   @db.ObjectId
+  content   String?
+  title     String?
+  createdAt DateTime @default(now())
+
+  // Relation back to main note
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+}
+
+// To save quizzes created by the user
+model Quiz {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  // Id of the quiz
+  quizId    String   @unique
+  // Name of the quiz
+  name      String
+  // Quiz Type
+  quizType  String
+  // Questions and Answers in the Quiz
+  questions Json[]
+  // Is note public?
+  isPublic  Boolean  @default(false)
+  // User to which the file belongs
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  // Created & updated times
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// To keep track of limit update
+model DailyLimitUpdateDate {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  updateDate DateTime
+  createdAt  DateTime @default(now())
+}

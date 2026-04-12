@@ -1,0 +1,46 @@
+{
+  "name": "awt-project",
+  "version": "1.0.0",
+  "description": "Server for Grid Manager - A Fantasy F1 App.",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "Roshith Prakash",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc",
+    "devCompiler": "npx tsc --watch",
+    "dev": "nodemon dist/index.js",
+    "studio": "npx prisma studio",
+    "server": "node dist/index.js",
+    "postinstall": "npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "axios": "^1.15.0",
+    "cloudinary": "^2.9.0",
+    "cors": "^2.8.6",
+    "decimal.js": "^10.6.0",
+    "diff-match-patch": "^1.0.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "express-rate-limit": "^7.5.1",
+    "helmet": "^8.1.0",
+    "html-to-text": "^9.0.5",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^6.34.0",
+    "redis": "^4.7.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/express": "^5.0.0",
+    "@types/html-to-text": "^9.0.4",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.5",
+    "prisma": "^6.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
