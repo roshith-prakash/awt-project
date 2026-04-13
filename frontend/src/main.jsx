@@ -13,13 +13,9 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {}
     <DarkModeProvider>
-      {}
       <QueryClientProvider client={queryClient}>
-        {}
         <AuthProvider>
-          {}
           <UserProvider>
             <NextCreditUpdateProvider>
               <Toaster />

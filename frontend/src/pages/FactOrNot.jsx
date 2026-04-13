@@ -117,7 +117,6 @@ const FactOrNot = () => {
         isDarkMode ? "bg-animatedWaveDark" : "bg-animatedWave"
       } bg-no-repeat bg-cover font-body min-h-screen`}
     >
-      {}
       <InputBox
         buttonText={"Generate Questions"}
         difficulty={difficulty}
@@ -137,7 +136,6 @@ const FactOrNot = () => {
         setNote={setNote}
       />
 
-      {}
       {!isLoading && questions?.length > 0 && (
         <>
           <p className="text-center mt-10  px-2">
@@ -168,7 +166,6 @@ const FactOrNot = () => {
         </>
       )}
 
-      {}
       {error && (
         <p className="text-center font-medium text-xl  drop-shadow-lg">
           Uh oh! Couldn't create questions about "{searchTerm}". Maybe try a
@@ -176,7 +173,6 @@ const FactOrNot = () => {
         </p>
       )}
 
-      {}
       {isLoading && (
         <div className="mt-12 flex justify-center items-center">
           <SyncLoader
@@ -189,7 +185,6 @@ const FactOrNot = () => {
         </div>
       )}
 
-      {}
       {!isLoading && questions?.length > 0 && (
         <div className="flex flex-col items-center gap-y-6 pb-20">
           <div className="flex justify-center w-full">
@@ -234,7 +229,6 @@ const FactOrNot = () => {
         sourceTitle="Fact Or Not"
       />
 
-      {}
       {!isLoading && questions?.length > 0 && <GoUpButton />}
     </div>
   );

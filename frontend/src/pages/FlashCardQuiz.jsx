@@ -90,7 +90,6 @@ const FlashCardQuiz = () => {
           isDarkMode ? "bg-animatedWaveDark" : "bg-animatedWave"
         } bg-no-repeat bg-cover font-body min-h-screen`}
       >
-        {}
         <InputBox
           buttonText={"Generate FlashCards"}
           difficulty={difficulty}
@@ -110,7 +109,6 @@ const FlashCardQuiz = () => {
           setNote={setNote}
         />
 
-        {}
         {!isLoading && questions?.length > 0 && (
           <>
             <p className="text-center mt-10  px-2 text-darkbg/70 dark:text-white/70">
@@ -151,7 +149,6 @@ const FlashCardQuiz = () => {
           quizType="Flashcard"
         />
 
-        {}
         {isLoading && (
           <div className="mt-12 flex justify-center items-center">
             <SyncLoader
@@ -164,7 +161,6 @@ const FlashCardQuiz = () => {
           </div>
         )}
 
-        {}
         {error && (
           <p className="text-center font-medium text-xl px-5 drop-shadow-lg">
             Uh oh! Couldn't create flashcards about "{searchTerm}". Maybe try a
@@ -172,7 +168,6 @@ const FlashCardQuiz = () => {
           </p>
         )}
 
-        {}
         {questions?.length > 0 && !isLoading && <GoUpButton />}
       </div>
     </>

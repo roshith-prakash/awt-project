@@ -180,7 +180,6 @@ const NoteEditor = () => {
 
   return (
     <>
-      {}
       <AlertModal
         onClose={() => {
           setIsDeleteModalOpen(false);
@@ -188,17 +187,14 @@ const NoteEditor = () => {
         isOpen={isDeleteModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete this note?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             This action cannot be reversed.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -219,7 +215,6 @@ const NoteEditor = () => {
         </div>
       </AlertModal>
 
-      {}
       <Modal
         onClose={() => {
           setIsPrivacyModalOpen(false);
@@ -236,16 +231,14 @@ const NoteEditor = () => {
         </button>
 
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext pr-8 font-bold text-2xl">
             Do you want to make this note public?
           </h1>
-          {}
+
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             Public notes will be visible on your profile.
           </h2>
           <div className="grid mt-4 grid-cols-1 sm:grid-cols-2 gap-4">
-            {}
             <div
               onClick={() => setIsPublic(true)}
               className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${
@@ -285,7 +278,6 @@ const NoteEditor = () => {
               </p>
             </div>
 
-            {}
             <div
               onClick={() => setIsPublic(false)}
               className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${
@@ -329,7 +321,6 @@ const NoteEditor = () => {
       </Modal>
 
       <div className="relative max-w-[95%] mb-20 md:max-w-5xl mx-auto mt-10 px-4 py-6 bg-white dark:bg-white/5 rounded-xl shadow-sm">
-        {}
         <HoverError
           position="top"
           text={(() => {
@@ -356,7 +347,6 @@ const NoteEditor = () => {
           />
         </HoverError>
 
-        {}
         <div className="absolute top-5 right-5">
           <Popover>
             <PopoverTrigger className="flex items-center cursor-pointer">
@@ -388,12 +378,10 @@ const NoteEditor = () => {
           </Popover>
         </div>
 
-        {}
         <div className="sticky z-1 py-1 pb-3 border-b-2 bg-white dark:bg-secondarydarkbg top-0">
           <QuillToolbar />
         </div>
 
-        {}
         <ReactQuill
           theme="snow"
           value={content}

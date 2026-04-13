@@ -8,6 +8,7 @@ dotenv.config();
 // Access your API key as an environment variable (see "Set up your API key" above)
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY });
 const model = "gemini-3-flash-preview";
+
 // Helper to extract JSON from text that might contain markdown or extra conversational text
 const extractJSON = (text) => {
   try {
@@ -35,6 +36,7 @@ const extractJSON = (text) => {
     throw error;
   }
 };
+
 // To generate flashcards
 export const generateFlashcardQuestions = async (
   topic,
@@ -117,22 +119,26 @@ export const generateFlashcardQuestions = async (
     }
   }
 };
+
 // Wrapper function to be called by API
 export const getFlashcards = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.body.userId },
     });
+
     if (!user) {
       res.status(404).send({ error: "User not found" });
       return;
     }
+
     const topic = req.body.topic;
     const difficulty = req.body.difficulty;
     const noteId = req.body.noteId;
     const fileId = req.body.fileId;
     let note;
     let file;
+
     // Step 1: Estimate token usage BEFORE AI call
     let totalTokensUsed = 0;
     if (fileId) {
@@ -145,6 +151,7 @@ export const getFlashcards = async (req, res) => {
       }
       totalTokensUsed += Math.ceil(file.base64size / 4);
     }
+
     if (noteId) {
       note = await prisma.note.findUnique({ where: { noteId } });
       if (note?.content) {
@@ -154,6 +161,7 @@ export const getFlashcards = async (req, res) => {
       }
       note = note?.content;
     }
+
     const creditsNeeded =
       Number((totalTokensUsed / tokensPerCredit).toFixed(2)) + minCreditUsed;
     const availableCredits =
@@ -212,6 +220,7 @@ export const getFlashcards = async (req, res) => {
     res.status(500).send({ error: "Something went wrong." });
   }
 };
+
 // To generate MCQs
 export const generateMCQQuestions = async (topic, difficulty, note, file) => {
   try {
@@ -279,6 +288,7 @@ export const generateMCQQuestions = async (topic, difficulty, note, file) => {
     throw Error("Error in generating MCQ questions");
   }
 };
+
 // Wrapper function to be called by API
 export const getMCQs = async (req, res) => {
   try {
@@ -371,6 +381,7 @@ export const getMCQs = async (req, res) => {
     return;
   }
 };
+
 // To generate Fact or not questions
 export const generateFactOrNotQuestions = async (
   topic,
@@ -439,6 +450,7 @@ export const generateFactOrNotQuestions = async (
     throw Error("Error in generating MCQ questions");
   }
 };
+
 // Wrapper function to be called by API
 export const getFactOrNot = async (req, res) => {
   try {

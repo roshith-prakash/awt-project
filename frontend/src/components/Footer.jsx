@@ -7,14 +7,12 @@ const Footer = () => {
 
   return (
     <footer className="bg-secondarydarkbg border-t-4 border-darkmodetext/25 relative mt-20 pt-20 pb-12 text-darkmodetext">
-      {}
       <div className="container mx-auto px-10">
         <div
           className={`grid grid-cols-1 md:grid-cols-2  ${
             dbUser ? "lg:grid-cols-3" : "lg:grid-cols-2"
           } gap-10`}
         >
-          {}
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-3 mb-4">
               <img
@@ -34,7 +32,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {}
           {!dbUser && (
             <div>
               <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">
@@ -61,7 +58,6 @@ const Footer = () => {
             </div>
           )}
 
-          {}
           {dbUser && (
             <div>
               <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">
@@ -96,7 +92,6 @@ const Footer = () => {
             </div>
           )}
 
-          {}
           {dbUser && (
             <div>
               <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">
@@ -132,7 +127,6 @@ const Footer = () => {
           )}
         </div>
 
-        {}
         <div className="border-t border-darkmodetext/10 mt-8 pt-8 text-center text-darkmodetext/60 text-sm">
           <p>© {currentYear} HootLearn. All rights reserved.</p>
         </div>

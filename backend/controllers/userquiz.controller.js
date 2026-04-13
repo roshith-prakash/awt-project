@@ -1,6 +1,7 @@
 import { prisma } from "../utils/prismaClient.js";
 import { quizLimit } from "../constants/constants.js";
 import { v4 as uuidv4 } from "uuid";
+
 // Saves a new Quiz
 export const createQuiz = async (req, res) => {
   try {
@@ -43,6 +44,7 @@ export const createQuiz = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Get number of quizzes created by the user
 export const getNumberOfQuizzes = async (req, res) => {
   try {
@@ -63,6 +65,7 @@ export const getNumberOfQuizzes = async (req, res) => {
     res.status(500).send({ message: "Something went wrong." });
   }
 };
+
 // Gets an existing quiz by ID
 export const getQuizById = async (req, res) => {
   try {
@@ -86,6 +89,7 @@ export const getQuizById = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Gets quizzes created by a user
 export const getQuizzesCreatedByAUser = async (req, res) => {
   try {
@@ -146,6 +150,7 @@ export const getQuizzesCreatedByAUser = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Updates an existing quiz's content
 export const updateQuiz = async (req, res) => {
   try {
@@ -178,6 +183,7 @@ export const updateQuiz = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Renames an existing quiz
 export const renameQuiz = async (req, res) => {
   try {
@@ -205,6 +211,7 @@ export const renameQuiz = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Deletes an existing quiz
 export const deleteQuiz = async (req, res) => {
   try {

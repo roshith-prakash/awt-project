@@ -171,25 +171,21 @@ const Profile = () => {
 
   return (
     <>
-      {}
       <AlertModal
         isOpen={isDeleteProfileModalOpen}
         className="max-w-xl"
         onClose={() => setIsDeleteProfileModalOpen(false)}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete your account?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70">
             This action cannot be reversed. Deleting your account will remove
             all your teams and leagues.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               className="text-sm bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600"
@@ -210,16 +206,12 @@ const Profile = () => {
         </div>
       </AlertModal>
 
-      {}
       <div className="lg:min-h-screen bg-bgwhite dark:bg-darkbg dark:text-darkmodetext w-full pb-20">
-        {}
         <div className="bg-secondarydarkbg overflow-hidden dark:bg-darkgrey border-b-4 border-black h-48 dark:border-white/10">
           <img src={banner} className="object-cover" />
         </div>
 
-        {}
         <div className="bg-white dark:bg-secondarydarkbg dark:border-white/25 shadow-xl -translate-y-14 border-2 min-h-52 pt-20 pb-10 rounded-lg mx-5 md:mx-10 lg:mx-20">
-          {}
           <div className="absolute w-full -top-18 flex justify-center">
             {dbUser?.photoURL ? (
               <img
@@ -236,7 +228,6 @@ const Profile = () => {
             )}
           </div>
 
-          {}
           <div className="lg:hidden absolute flex gap-x-4 right-6 top-5">
             <BsPen
               className="text-xl hover:text-cta dark:hover:text-darkmodeCTA transition-all cursor-pointer"
@@ -251,7 +242,6 @@ const Profile = () => {
             </button>
           </div>
 
-          {}
           <div className="hidden absolute lg:flex gap-x-4 right-6 top-5">
             <SecondaryButton
               text={
@@ -276,7 +266,6 @@ const Profile = () => {
             />
           </div>
 
-          {}
           <div className="px-2 mb-10">
             <p className="text-center text-3xl font-bold">{dbUser?.name}</p>
             <p className="mt-2 text-center text-xl font-medium text-cta">
@@ -289,7 +278,6 @@ const Profile = () => {
             )}
           </div>
 
-          {}
           <div className="px-5 md:px-10 mt-12">
             <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
               <span className="w-2 h-8 bg-cta rounded-full" />
@@ -335,10 +323,8 @@ const Profile = () => {
             </div>
           </div>
 
-          {}
           <hr className="my-5 mx-2 dark:border-white/25" />
 
-          {}
           <div className="mt-5 text-gray-400 flex justify-center items-center gap-x-2 text-sm italic">
             <TfiWrite /> Became a Quizzer on{" "}
             {dayjs(new Date(dbUser?.createdAt)).format("MMM DD, YYYY")}.

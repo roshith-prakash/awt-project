@@ -128,17 +128,14 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
       isOpen={isModalOpen}
       onClose={setIsModalOpen}
     >
-      {}
       <h1 className="dark:text-darkmodetext pt-5 font-bold text-xl text-center">
         Sign in to HootLearn
       </h1>
 
-      {}
       <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
         Welcome back! Please sign in to continue.
       </h2>
 
-      {}
       <div className="flex justify-center">
         <button
           disabled={disabled}
@@ -151,7 +148,6 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
         </button>
       </div>
 
-      {}
       <div className="flex mt-8 mb-5 text-sm items-center">
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
         <p className="text-center px-2 font-semibold text-darkbg/50 dark:text-white/25">
@@ -160,9 +156,7 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
       </div>
 
-      {}
       <>
-        {}
         <div className="mt-4 px-2">
           <p className="text-sm font-medium">Email</p>
           <Input
@@ -205,7 +199,6 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
           />
         </div>
 
-        {}
         <div className="text-sm mt-4 px-2">
           <p className="text-sm font-medium">Password</p>
           <PasswordInput
@@ -264,7 +257,6 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
           Forgot your password?
         </button>
 
-        {}
         <div className="text-sm mt-6">
           <PrimaryButton
             disabled={disabled}
@@ -276,12 +268,10 @@ const LoginModal = ({ isModalOpen, setIsModalOpen, moveToSignup }) => {
         </div>
       </>
 
-      {}
       <div className="flex mt-6 mb-5 items-center">
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
       </div>
 
-      {}
       <div className="text-sm text-center text-darkbg/80 dark:text-white/80 pt-2">
         Don't have an account?{" "}
         <button

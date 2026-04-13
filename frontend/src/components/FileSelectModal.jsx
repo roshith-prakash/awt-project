@@ -179,7 +179,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
   return (
     <>
       <AlertModal className="w-full" isOpen={isOpen} onClose={onClose}>
-        {}
         <AlertModal
           onClose={() => {
             setIsUploadModalOpen(false);
@@ -188,7 +187,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
           isOpen={isUploadModalOpen}
         >
           <div className="flex flex-col gap-6 p-6 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-            {}
             <div className="flex items-center gap-3">
               <div className="p-2 bg-blue-50 dark:bg-white/10 rounded-lg">
                 <IoCloudUploadOutline className="w-5 h-5 text-cta" />
@@ -207,7 +205,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
               accept="application/pdf"
             />
 
-            {}
             <div className="relative">
               <button
                 disabled={isUploading}
@@ -230,7 +227,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
               </button>
             </div>
 
-            {}
             {files && files.length > 0 && (
               <div className="space-y-3">
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -284,7 +280,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
               </div>
             )}
 
-            {}
             <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
               <PrimaryButton
                 disabled={isUploading}
@@ -319,7 +314,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
 
         <div className=" flex flex-col justify-between gap-4 ">
           <div className="flex flex-wrap items-center gap-4">
-            {}
             <h1 className="text-hovercta font-title dark:text-darkmodeCTA text-3xl md:text-4xl font-medium">
               Files
             </h1>
@@ -329,7 +323,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
             </p>
           </div>
 
-          {}
           <SecondaryButton
             className="border-transparent dark:hover:!text-cta dark:disabled:hover:!text-gray-400 shadow-md"
             disabled={
@@ -353,7 +346,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
           ></SecondaryButton>
         </div>
 
-        {}
         <div className="flex flex-col items-center">
           <div className="relative my-10 mt-14 w-full max-w-3xl flex justify-center">
             <IoIosSearch className="absolute left-2 top-5 mt-0.5 text-greyText text-xl" />
@@ -366,14 +358,12 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
           </div>
         </div>
 
-        {}
         {debouncedSearch && (
           <p className="font-medium py-5">
             Showing search results for &quot;{debouncedSearch}&quot;
           </p>
         )}
 
-        {}
         {dbFiles && dbFiles?.pages?.[0]?.data?.files.length > 0 && (
           <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
             {dbFiles &&
@@ -420,7 +410,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
           </div>
         )}
 
-        {}
         {loadingFiles && (
           <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
             {Array(4)
@@ -437,11 +426,9 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
                       <p className="px-0.5 h-4 w-48 bg-gray-500 rounded animate-pulse mb-4 "></p>
                     </div>
 
-                    {}
                     <div className="mt-5 flex gap-x-3 items-center w-fit">
-                      {}
                       <div className="px-0.5 h-10 w-10 rounded-full bg-gray-500  animate-pulse mb-4 " />
-                      {}
+
                       <div>
                         <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
                         <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
@@ -453,7 +440,6 @@ const FileSelectModal = ({ selectedFile, isOpen, onClose, onSelect }) => {
           </div>
         )}
 
-        {}
         {dbFiles && dbFiles?.pages?.[0]?.data?.files.length == 0 && (
           <div className="flex flex-col justify-center pt-10">
             <div className="flex justify-center">

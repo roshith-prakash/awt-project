@@ -8,16 +8,20 @@ import { redisClient } from "./utils/redis.js";
 import rateLimit from "express-rate-limit";
 import { dailyCredit } from "./constants/constants.js";
 dotenv.config();
+
 // Importing Routes ----------------------------------------------------------------------------------------------
 import userRouter from "./routes/user.routes.js";
 import noteRouter from "./routes/note.routes.js";
 import fileRouter from "./routes/file.routes.js";
 import quizRouter from "./routes/quiz.routes.js";
 import userquizRouter from "./routes/userquiz.routes.js";
+
 // Initializing Server -------------------------------------------------------------------------------------------
 const app = express();
 let server = http.createServer(app);
+
 // Using Middleware -------------------------------------------------------------------------------------------
+
 // Whitelist for trusted domains
 const whitelist = ["http://localhost:3000"];
 // Function to deny access to domains except those in whitelist.
@@ -33,6 +37,7 @@ const corsOptions = {
     }
   },
 };
+
 // Limit each IP to 60 requests per minute
 const limiter = rateLimit({
   windowMs: 60 * 1000,
@@ -50,7 +55,9 @@ app.disable("x-powered-by");
 app.use(express.json());
 // Enable CORS
 app.use(cors());
+
 // Routes -------------------------------------------------------------------------------------------
+
 // Default route to check if server is working.
 app.get("/api/v1", (_, res) => {
   res.status(200).send("We are good to go!");
@@ -134,7 +141,9 @@ app.get(
     }
   },
 );
+
 // Routes -----------------------------------------------------------------------------------------
+
 // Auth Routes
 app.use("/api/v1/user", userRouter);
 // Note Routes
@@ -145,6 +154,7 @@ app.use("/api/v1/file", fileRouter);
 app.use("/api/v1/quiz", quizRouter);
 // User Quiz Routes
 app.use("/api/v1/user-quiz", userquizRouter);
+
 // Listening on PORT -------------------------------------------------------------------------------------------
 server.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);

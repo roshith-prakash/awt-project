@@ -79,7 +79,6 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
       </button>
 
       <div className="flex flex-col justify-between flex-wrap gap-4">
-        {}
         <h1 className="text-hovercta font-title dark:text-darkmodeCTA text-3xl md:text-4xl font-medium">
           Notes
         </h1>
@@ -89,7 +88,6 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
         </p>
       </div>
 
-      {}
       <div className="flex flex-col items-center">
         <div className="relative my-10 mt-14 w-full max-w-3xl flex justify-center">
           <IoIosSearch className="absolute left-2 top-5 mt-0.5 text-greyText text-xl" />
@@ -102,14 +100,12 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
         </div>
       </div>
 
-      {}
       {debouncedSearch && (
         <p className="font-medium py-5">
           Showing search results for &quot;{debouncedSearch}&quot;
         </p>
       )}
 
-      {}
       {notes && notes?.pages?.[0]?.data?.notes.length > 0 && (
         <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
           {notes &&
@@ -150,7 +146,6 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
         </div>
       )}
 
-      {}
       {loadingNotes && (
         <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
           {Array(4)
@@ -167,11 +162,9 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
                     <p className="px-0.5 h-4 w-48 bg-gray-500 rounded animate-pulse mb-4 "></p>
                   </div>
 
-                  {}
                   <div className="mt-5 flex gap-x-3 items-center w-fit">
-                    {}
                     <div className="px-0.5 h-10 w-10 rounded-full bg-gray-500  animate-pulse mb-4 " />
-                    {}
+
                     <div>
                       <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
                       <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
@@ -183,7 +176,6 @@ const NoteSelectModal = ({ selectedNote, isOpen, onClose, onSelect }) => {
         </div>
       )}
 
-      {}
       {notes && notes?.pages?.[0]?.data?.notes.length == 0 && (
         <div className="flex flex-col justify-center pt-10">
           <div className="flex justify-center">

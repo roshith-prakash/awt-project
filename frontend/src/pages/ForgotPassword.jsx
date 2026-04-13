@@ -45,19 +45,15 @@ export default function ForgotPassword() {
       <h2></h2>
 
       <div className="bg-white mt-14 mx-auto dark:border-1 dark:border-white/25 dark:bg-secondarydarkbg max-w-xl dark:bg-darkgrey dark:text-darkmodetext border-darkbg/25 border-1 px-8 lg:max-w-lg  p-5 md:px-10 shadow-lg rounded-2xl pb-10">
-        {}
         <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
           Forgot Password
         </h1>
 
-        {}
         <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
           Forgot your password? Enter your email to reset it.
         </h2>
 
-        {}
         <>
-          {}
           <div className="mt-4 px-2">
             <p className="font-medium">Email</p>
             <Input
@@ -104,7 +100,6 @@ export default function ForgotPassword() {
             <p className="text-green-600 ml-3 dark:text-green-400">{message}</p>
           )}
 
-          {}
           <div className="mt-8">
             <PrimaryButton
               disabledText="Please Wait..."
@@ -115,12 +110,10 @@ export default function ForgotPassword() {
           </div>
         </>
 
-        {}
         <div className="flex mt-10 mb-5 items-center">
           <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
         </div>
 
-        {}
         <div className="text-center text-darkbg/80 dark:text-white/80 pt-2">
           Remembered your password?{" "}
           <Link

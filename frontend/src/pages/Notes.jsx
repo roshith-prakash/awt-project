@@ -177,7 +177,6 @@ const Notes = () => {
 
   return (
     <>
-      {}
       <AlertModal
         onClose={() => {
           setIsDeleteModalOpen(false);
@@ -185,17 +184,14 @@ const Notes = () => {
         isOpen={isDeleteModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete this note?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             This action cannot be reversed.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -216,7 +212,6 @@ const Notes = () => {
         </div>
       </AlertModal>
 
-      {}
       <AlertModal
         onClose={() => {
           setIsRenameModalOpen(false);
@@ -224,12 +219,10 @@ const Notes = () => {
         isOpen={isRenameModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Rename this note
           </h1>
 
-          {}
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Give your note a new name to help you find it later.
           </p>
@@ -264,7 +257,6 @@ const Notes = () => {
             placeholder="Add Note Title..."
           />
 
-          {}
           <div className="flex w-full justify-between">
             <div>
               <ErrorStatement
@@ -286,7 +278,6 @@ const Notes = () => {
             </p>
           </div>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -309,10 +300,8 @@ const Notes = () => {
 
       <div className="min-h-[70vh] dark:bg-darkbg dark:text-darkmodetext md:min-h-[65vh] lg:min-h-[60vh] px-8 lg:px-10 py-10">
         <div>
-          {}
           <div className="flex justify-between gap-x-4 items-center">
             <div className="flex items-center flex-wrap gap-4">
-              {}
               <h1 className="text-hovercta font-title dark:text-darkmodeCTA text-3xl md:text-4xl font-medium">
                 Notes
               </h1>
@@ -322,7 +311,6 @@ const Notes = () => {
               </p>
             </div>
 
-            {}
             <SecondaryButton
               disabled={numberOfNotes?.data?.noteCount == maxNumberOfNotes}
               className="border-transparent dark:hover:!text-cta dark:disabled:hover:!text-gray-400 shadow-md"
@@ -336,7 +324,6 @@ const Notes = () => {
             ></SecondaryButton>
           </div>
 
-          {}
           <div className="flex flex-col items-center">
             <div className="relative my-10 mt-14 w-full max-w-3xl flex justify-center">
               <IoIosSearch className="absolute left-2 top-5 mt-0.5 text-greyText text-xl" />
@@ -349,14 +336,12 @@ const Notes = () => {
             </div>
           </div>
 
-          {}
           {debouncedSearch && (
             <p className="font-medium py-5">
               Showing search results for &quot;{debouncedSearch}&quot;
             </p>
           )}
 
-          {}
           {notes && notes?.pages?.[0]?.data?.notes.length > 0 && (
             <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {notes &&
@@ -422,7 +407,6 @@ const Notes = () => {
                             </p>
                           </div>
 
-                          {}
                           <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cta via-pink-400 to-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
                         </div>
                       );
@@ -432,7 +416,6 @@ const Notes = () => {
             </div>
           )}
 
-          {}
           {loadingNotes && (
             <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {Array(4)
@@ -449,11 +432,9 @@ const Notes = () => {
                         <p className="px-0.5 h-4 w-48 bg-gray-500 rounded animate-pulse mb-4 "></p>
                       </div>
 
-                      {}
                       <div className="mt-5 flex gap-x-3 items-center w-fit">
-                        {}
                         <div className="px-0.5 h-10 w-10 rounded-full bg-gray-500  animate-pulse mb-4 " />
-                        {}
+
                         <div>
                           <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
                           <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
@@ -465,7 +446,6 @@ const Notes = () => {
             </div>
           )}
 
-          {}
           {notes && notes?.pages?.[0]?.data?.notes.length == 0 && (
             <div className="flex flex-col justify-center pt-10">
               <div className="flex justify-center">

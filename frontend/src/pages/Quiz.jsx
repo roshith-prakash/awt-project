@@ -121,7 +121,6 @@ const Quiz = () => {
 
   return (
     <div>
-      {}
       <AlertModal
         onClose={() => {
           setIsDeleteModalOpen(false);
@@ -129,17 +128,14 @@ const Quiz = () => {
         isOpen={isDeleteModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete this quiz?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             This action cannot be reversed.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -160,7 +156,6 @@ const Quiz = () => {
         </div>
       </AlertModal>
 
-      {}
       <AlertModal
         onClose={() => {
           setIsRenameModalOpen(false);
@@ -168,12 +163,10 @@ const Quiz = () => {
         isOpen={isRenameModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Rename this quiz
           </h1>
 
-          {}
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Give your quiz a new name to help you find it later.
           </p>
@@ -208,7 +201,6 @@ const Quiz = () => {
             placeholder="Add Note Title..."
           />
 
-          {}
           <div className="flex w-full justify-between">
             <div>
               <ErrorStatement
@@ -230,7 +222,6 @@ const Quiz = () => {
             </p>
           </div>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -253,12 +244,11 @@ const Quiz = () => {
 
       {data?.data && (
         <div className="max-w-[95%] mx-auto flex flex-col">
-          {}
           <div className="relative w-full mb-10 md:max-w-5xl mx-auto mt-10 px-4 py-6 bg-white dark:bg-white/5 rounded-xl shadow-sm">
             <p className="text-3xl pr-12 font-semibold">
               {data?.data?.quiz?.name}
             </p>
-            {}
+
             <div className="absolute top-5 right-5">
               <Popover>
                 <PopoverTrigger className="flex items-center cursor-pointer">
@@ -306,7 +296,6 @@ const Quiz = () => {
           </div>
 
           <div className="flex flex-wrap gap-5 justify-center py-10">
-            {}
             {data?.data?.quiz?.questions?.length > 0 &&
               (data?.data?.quiz?.quizType == "MCQ" ||
                 data?.data?.quiz?.quizType == "Fact or Not") &&
@@ -323,7 +312,6 @@ const Quiz = () => {
                 );
               })}
 
-            {}
             {data?.data?.quiz?.questions?.length > 0 &&
               data?.data?.quiz?.quizType == "Flashcard" &&
               data?.data?.quiz?.questions?.map((item) => {
@@ -337,7 +325,6 @@ const Quiz = () => {
               })}
           </div>
 
-          {}
           {data?.data?.quiz?.questions?.length > 0 &&
             (data?.data?.quiz?.quizType == "MCQ" ||
               data?.data?.quiz?.quizType == "Fact or Not") && (
@@ -361,14 +348,12 @@ const Quiz = () => {
                       className="w-10"
                     />
                   )}
-                  {}
                 </p>
               </div>
             )}
         </div>
       )}
 
-      {}
       {isLoading && (
         <div className="mt-12 flex justify-center items-center">
           <SyncLoader
@@ -381,7 +366,6 @@ const Quiz = () => {
         </div>
       )}
 
-      {}
       {error && (
         <p className="text-center mt-14 font-medium text-xl px-5 drop-shadow-lg">
           Could not fetch quiz details. Please try again later.

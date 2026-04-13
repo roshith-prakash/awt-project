@@ -129,17 +129,14 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
       isOpen={isModalOpen}
       onClose={setIsModalOpen}
     >
-      {}
       <h1 className="dark:text-darkmodetext font-bold text-xl text-center">
         Create your account
       </h1>
 
-      {}
       <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
         Welcome! Please fill in the details to get started.
       </h2>
 
-      {}
       <div className="flex justify-center">
         <button
           disabled={disabled}
@@ -151,7 +148,6 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
         </button>
       </div>
 
-      {}
       <div className="flex mt-8 mb-5 text-sm items-center">
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
         <p className="text-center px-2 font-semibold text-darkbg/50 dark:text-white/25">
@@ -160,9 +156,7 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
       </div>
 
-      {}
       <>
-        {}
         <div className="mt-4 px-2">
           <p className="font-medium text-sm">Email</p>
           <Input
@@ -205,7 +199,6 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
           />
         </div>
 
-        {}
         <div className="mt-4 px-2">
           <p className="font-medium text-sm">Password</p>
           <PasswordInput
@@ -254,7 +247,6 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
           />
         </div>
 
-        {}
         <div className="mt-4 px-2">
           <p className="font-medium text-sm">Confirm Password</p>
           <PasswordInput
@@ -302,7 +294,6 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
           />
         </div>
 
-        {}
         <div className="mt-6">
           <PrimaryButton
             disabled={disabled}
@@ -314,12 +305,10 @@ const SignupModal = ({ isModalOpen, setIsModalOpen, moveToLogin }) => {
         </div>
       </>
 
-      {}
       <div className="flex mt-5 mb-5 items-center">
         <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
       </div>
 
-      {}
       <div className=" text-center text-sm text-darkbg/80 dark:text-white/80 pt-2">
         Already have an account?{" "}
         <button

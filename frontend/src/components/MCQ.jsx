@@ -21,15 +21,12 @@ const MCQ = ({
 
   return (
     <div className="font-body max-w-[95%] md:max-w-3xl w-full  p-4 shadow-xl rounded-lg bg-white dark:bg-white/5">
-      {}
       <p className="font-medium text-lg">
         <span className="font-bold">Q . </span>
         {question}
       </p>
 
-      {}
       <div className="flex flex-col gap-y-3 mt-5">
-        {}
         {options?.map((option, index) => {
           return (
             <button
@@ -59,8 +56,6 @@ const MCQ = ({
                 }`}
             >
               <p>
-                {}
-                {}
                 {!selected ? (
                   index + 1 + "."
                 ) : showAnswer && answer == option ? (
@@ -70,7 +65,7 @@ const MCQ = ({
                 )}
                 {!showAnswer && selected && index + 1 + "."}
               </p>
-              {}
+
               <p>{String(option)}</p>
             </button>
           );

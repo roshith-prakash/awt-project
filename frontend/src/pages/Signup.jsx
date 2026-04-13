@@ -147,21 +147,16 @@ const Signup = () => {
   return (
     <>
       <div className="lg:min-h-[89vh] px-3 lg:px-8 flex gap-x-8 w-full">
-        {}
         <div className="min-h-[95vh] lg:h-full lg:min-h-[88vh] pb-10 bg-cover flex-1 flex justify-center items-center">
-          {}
           <div className="bg-white dark:bg-white/5 max-w-xl dark:bg-darkgrey dark:text-darkmodetext px-8 lg:max-w-lg mt-5 p-5 md:px-10 shadow-lg rounded-2xl pb-10">
-            {}
             <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
               Create your account
             </h1>
 
-            {}
             <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
               Welcome! Please fill in the details to get started.
             </h2>
 
-            {}
             <div className="flex justify-center">
               <button
                 disabled={disabled}
@@ -173,7 +168,6 @@ const Signup = () => {
               </button>
             </div>
 
-            {}
             <div className="flex mt-10 mb-5 items-center">
               <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
               <p className="text-center px-2 font-semibold text-darkbg/50 dark:text-white/25">
@@ -182,9 +176,7 @@ const Signup = () => {
               <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
             </div>
 
-            {}
             <>
-              {}
               <div className="mt-4 px-2">
                 <p className="font-medium">Email</p>
                 <Input
@@ -231,7 +223,6 @@ const Signup = () => {
                 />
               </div>
 
-              {}
               <div className="mt-4 px-2">
                 <p className="font-medium">Password</p>
                 <PasswordInput
@@ -280,7 +271,6 @@ const Signup = () => {
                 />
               </div>
 
-              {}
               <div className="mt-4 px-2">
                 <p className="font-medium">Confirm Password</p>
                 <PasswordInput
@@ -328,7 +318,6 @@ const Signup = () => {
                 />
               </div>
 
-              {}
               <div className="mt-8">
                 <PrimaryButton
                   disabled={disabled}
@@ -340,12 +329,10 @@ const Signup = () => {
               </div>
             </>
 
-            {}
             <div className="flex mt-10 mb-5 items-center">
               <div className="flex-1 h-0 border-1 border-darkbg/25 dark:border-white/25"></div>
             </div>
 
-            {}
             <div className="text-center text-darkbg/80 dark:text-white/80 pt-2">
               Already have an account?{" "}
               <Link
@@ -358,7 +345,6 @@ const Signup = () => {
           </div>
         </div>
 
-        {}
         <div className="hidden lg:flex lg:flex-1  items-center justify-center">
           <img src={isDarkMode ? doodleDark : doodle} className="max-w-[90%]" />
         </div>

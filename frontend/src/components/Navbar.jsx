@@ -75,18 +75,18 @@ const Navbar = () => {
 
   return (
     <>
-      {}
+      
       <AlertModal
         isOpen={isSignOutModalOpen}
         onClose={() => setIsSignOutModalOpen(false)}
       >
         <div className="flex flex-col gap-y-2">
-          {}
+          
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to sign out?
           </h1>
 
-          {}
+          
           <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70">
             You will need to log in again to access your account.
           </h2>
@@ -107,7 +107,7 @@ const Navbar = () => {
         </div>
       </AlertModal>
 
-      {}
+      
       <SignupModal
         moveToLogin={() => {
           setIsSignUpModalOpen(false);
@@ -117,7 +117,7 @@ const Navbar = () => {
         setIsModalOpen={() => setIsSignUpModalOpen(false)}
       />
 
-      {}
+      
       <LoginModal
         moveToSignup={() => {
           setIsLoginModalOpen(false);
@@ -130,7 +130,7 @@ const Navbar = () => {
       <nav
         className={`dark:bg-darkbg relative z-2 flex items-center justify-between bg-whitebg px-10 py-3 font-title dark:text-white`}
       >
-        {}
+        
         <Link to="/" aria-label="Home" className="flex gap-x-2 items-center">
           <img
             src={
@@ -145,9 +145,9 @@ const Navbar = () => {
           </p>
         </Link>
 
-        {}
+        
         <div className="hidden items-center text-2xl font-semibold -translate-x-10 gap-x-8  lg:flex">
-          {}
+          
           <Link
             to="/"
             className="hover:text-cta dark:hover:text-darkmodeCTA transition-all"
@@ -169,7 +169,7 @@ const Navbar = () => {
               >
                 Files
               </Link>
-              {}
+              
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -230,7 +230,7 @@ const Navbar = () => {
             </>
           )}
 
-          {}
+          
           <Link
             to="/faq"
             className="hover:text-cta dark:hover:text-darkmodeCTA transition-all"
@@ -239,9 +239,9 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {}
+        
         <div className="flex items-center gap-x-5">
-          {}
+          
           <button
             aria-label="Change Theme"
             className="hidden cursor-pointer lg:flex"
@@ -269,7 +269,7 @@ const Navbar = () => {
               </PopoverTrigger>
               <PopoverContent className="dark:bg-darkgrey dark:border-2 w-auto mt-2 mr-4 py-0 px-1">
                 <div className="py-1 min-w-48 flex flex-col gap-y-1">
-                  {}
+                  
                   {dbUser && (
                     <>
                       <Link
@@ -296,7 +296,7 @@ const Navbar = () => {
                     </>
                   )}
 
-                  {}
+                  
                   {dbUser && (
                     <>
                       <NavLink
@@ -314,7 +314,7 @@ const Navbar = () => {
                     </>
                   )}
 
-                  {}
+                  
                   {currentUser && !dbUser && (
                     <>
                       <NavLink
@@ -332,7 +332,7 @@ const Navbar = () => {
                     </>
                   )}
 
-                  {}
+                  
                   {currentUser && (
                     <NavLink
                       to="/signout"
@@ -343,7 +343,7 @@ const Navbar = () => {
                     </NavLink>
                   )}
 
-                  {}
+                  
                   {!currentUser && (
                     <>
                       <NavLink
@@ -361,7 +361,7 @@ const Navbar = () => {
                     </>
                   )}
 
-                  {}
+                  
                   {!currentUser && (
                     <NavLink
                       to="/signin"
@@ -381,9 +381,9 @@ const Navbar = () => {
           </div>
         </div>
 
-        {}
+        
         <div className="flex items-center gap-x-10 font-medium lg:hidden">
-          {}
+          
           <button
             className="cursor-pointer"
             aria-label="Change Theme"
@@ -396,7 +396,7 @@ const Navbar = () => {
             )}
           </button>
 
-          {}
+          
           <Popover>
             <PopoverTrigger className="flex items-center cursor-pointer">
               {dbUser ? (
@@ -412,7 +412,7 @@ const Navbar = () => {
             </PopoverTrigger>
             <PopoverContent className="dark:bg-darkgrey dark:border-2 w-auto mt-2 mr-4 py-0 px-1">
               <div className="py-1 min-w-48 flex flex-col gap-y-1">
-                {}
+                
                 {dbUser && (
                   <>
                     <Link
@@ -439,7 +439,7 @@ const Navbar = () => {
                   </>
                 )}
 
-                {}
+                
                 {dbUser && (
                   <>
                     <NavLink
@@ -457,7 +457,7 @@ const Navbar = () => {
                   </>
                 )}
 
-                {}
+                
                 {currentUser && !dbUser && (
                   <>
                     <NavLink
@@ -475,7 +475,7 @@ const Navbar = () => {
                   </>
                 )}
 
-                {}
+                
                 {currentUser && (
                   <NavLink
                     to="/signout"
@@ -486,7 +486,7 @@ const Navbar = () => {
                   </NavLink>
                 )}
 
-                {}
+                
                 {!currentUser && (
                   <>
                     <NavLink
@@ -504,7 +504,7 @@ const Navbar = () => {
                   </>
                 )}
 
-                {}
+                
                 {!currentUser && (
                   <NavLink
                     to="/signin"
@@ -522,13 +522,13 @@ const Navbar = () => {
             </PopoverContent>
           </Popover>
 
-          {}
+          
           <button onClick={() => setOpen(true)} className="cursor-pointer">
             <RxHamburgerMenu className="text-xl" aria-label="Open menu" />
           </button>
         </div>
 
-        {}
+        
         <div
           className={`dark:bg-darkbg scroller fixed top-0 right-0 z-50 h-screen w-full overflow-y-auto bg-whitebg pb-6 text-center text-xl shadow-md md:text-lg ${
             open ? "translate-x-0" : "translate-x-[100%]"
@@ -563,7 +563,7 @@ const Navbar = () => {
           </div>
 
           <div className="mt-20 flex flex-col text-2xl tracking-wide font-medium items-center justify-between gap-y-12 px-8">
-            {}
+            
             <button
               onClick={() => handleSearch("/")}
               className="hover:text-cta dark:hover-darkmodeCTA w-fit cursor-pointer transition-all"
@@ -591,7 +591,7 @@ const Navbar = () => {
                 >
                   Files
                 </button>
-                {}
+                
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
@@ -667,7 +667,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          {}
+          
           <div className="absolute bottom-24 left-1/2 w-full -translate-x-1/2 pl-1 text-sm lg:bottom-10"></div>
         </div>
       </nav>

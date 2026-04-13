@@ -67,52 +67,51 @@ export const formats = [
 export const QuillToolbar = () => (
   <div id="toolbar" className="rounded-lg !border-none">
     <span className="ql-formats">
-      {}
       <select className="ql-size">
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
       </select>
-      {}
+
       <select className="ql-header" defaultValue="3">
         <option value="1">Heading</option>
         <option value="2">Subheading</option>
         <option value="3">Normal</option>
       </select>
     </span>
-    {}
+
     <span className="ql-formats">
       <button className="ql-bold" />
       <button className="ql-italic" />
       <button className="ql-underline" />
       <button className="ql-strike" />
     </span>
-    {}
+
     <span className="ql-formats">
       <button className="ql-list" value="ordered" />
       <button className="ql-list" value="bullet" />
       <button className="ql-indent" value="-1" />
       <button className="ql-indent" value="+1" />
     </span>
-    {}
+
     <span className="ql-formats">
       <button className="ql-script" value="super" />
       <button className="ql-script" value="sub" />
       <button className="ql-blockquote" />
       <button className="ql-direction" />
     </span>
-    {}
+
     <span className="ql-formats">
       <select className="ql-align" />
       <select className="ql-color" />
       <select className="ql-background" />
     </span>
-    {}
+
     <span className="ql-formats">
       <button className="ql-formula" />
       <button className="ql-code-block" />
     </span>
-    {}
+
     <span className="ql-formats">
       <button className="ql-undo">
         <CustomUndo />

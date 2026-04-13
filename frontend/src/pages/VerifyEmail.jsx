@@ -34,12 +34,10 @@ export default function VerifyEmail() {
   return (
     <div>
       <div className="bg-white mx-auto mt-14 dark:border-1 dark:border-white/25 dark:bg-secondarydarkbg max-w-xl dark:bg-darkgrey dark:text-darkmodetext border-darkbg/25 border-1 px-8 lg:max-w-lg p-5 md:px-10 shadow-lg rounded-2xl pb-10">
-        {}
         <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
           Email Verification
         </h1>
 
-        {}
         {checking && (
           <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
             Please wait while we verify your email address.

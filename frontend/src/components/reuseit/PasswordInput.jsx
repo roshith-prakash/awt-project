@@ -13,7 +13,6 @@ const PasswordInput = ({
   const [display, setDisplay] = useState(false);
   return (
     <div className="relative w-full">
-      {}
       <input
         disabled={disabled}
         type={display ? "text" : "password"}
@@ -26,7 +25,6 @@ const PasswordInput = ({
         {...rest}
       />
 
-      {}
       {display ? (
         <FaEye
           className="absolute top-6.5 right-4 cursor-pointer"

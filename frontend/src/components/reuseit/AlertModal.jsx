@@ -28,7 +28,6 @@ const AlertModal = ({ isOpen, onClose, children, className }) => {
         isClosing ? "opacity-0" : "opacity-100"
       }`}
     >
-      {}
       <div
         className={cn(
           `dark:bg-secondarydarkbg scroller ${

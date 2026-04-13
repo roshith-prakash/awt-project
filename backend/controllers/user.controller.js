@@ -1,5 +1,6 @@
 import cloudinary from "../utils/cloudinary.js";
 import { prisma } from "../utils/prismaClient.js";
+
 // Create a new User
 export const createUser = async (req, res) => {
   try {
@@ -79,6 +80,7 @@ export const createUser = async (req, res) => {
     return;
   }
 };
+
 // Get Current User from DB
 export const getCurrentUser = async (req, res) => {
   try {
@@ -103,6 +105,7 @@ export const getCurrentUser = async (req, res) => {
     return;
   }
 };
+
 // Get User information
 export const getUserProfile = async (req, res) => {
   try {
@@ -134,6 +137,7 @@ export const getUserProfile = async (req, res) => {
     return;
   }
 };
+
 // Check whether username already exists
 export const checkIfUsernameExists = async (req, res) => {
   try {
@@ -159,6 +163,7 @@ export const checkIfUsernameExists = async (req, res) => {
     return;
   }
 };
+
 // Update the User details - image, name, bio, username updateable0
 export const updateUser = async (req, res) => {
   try {
@@ -236,6 +241,7 @@ export const updateUser = async (req, res) => {
     return;
   }
 };
+
 // Delete the user
 export const deleteUser = async (req, res) => {
   try {

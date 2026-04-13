@@ -103,7 +103,6 @@ const Note = () => {
 
   return (
     <div className="relative max-w-[95%] mb-20 md:max-w-5xl mx-auto mt-10 px-4 py-6 bg-white dark:bg-white/5 rounded-xl shadow-sm">
-      {}
       <input
         type="text"
         disabled={true}
@@ -114,7 +113,7 @@ const Note = () => {
       />
 
       <hr className="border-t-2" />
-      {}
+
       <ReactQuill
         theme="bubble"
         value={content}

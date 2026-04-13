@@ -167,12 +167,10 @@ const Onboarding = () => {
       <div>
         <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               You have not signed in!
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -180,7 +178,6 @@ const Onboarding = () => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={() => navigate("/signup")}
@@ -199,12 +196,10 @@ const Onboarding = () => {
       <div>
         <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               Verify Email by clicking link in your mailbox!
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -212,7 +207,6 @@ const Onboarding = () => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={sendVerification}
@@ -243,12 +237,10 @@ const Onboarding = () => {
       <div>
         <div className="min-h-[70vh] dark:bg-darkbg dark:text-darkmodetext md:min-h-[65vh] lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               You have already created your profile!
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -256,7 +248,6 @@ const Onboarding = () => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={() => navigate("/")}
@@ -312,17 +303,14 @@ const Onboarding = () => {
       )}
       <div className=" min-h-[70vh] md:min-h-[65vh] lg:min-h-[60vh] flex items-center justify-center pt-12 pb-20">
         <div className="bg-white dark:bg-secondarydarkbg w-full dark:bg-darkgrey dark:text-darkmodetext border-[1px] max-w-[95%] md:max-w-3xl md:mt-5 lg:mt-5 p-5 md:px-20 shadow-xl rounded-xl pb-10">
-          {}
           <h1 className="dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
             Let's get to know you
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-sm text-darkbg/70 text-center">
             Tell us your name and choose a username to get started.
           </h2>
 
-          {}
           <div className="mt-10 flex flex-col items-center gap-y-5">
             <input
               className="hidden"
@@ -356,9 +344,7 @@ const Onboarding = () => {
             </button>
           </div>
 
-          {}
           <div className="mt-14 flex flex-col gap-y-8 lg:gap-x-5">
-            {}
             <div className="lg:flex-1 px-2">
               <p className="font-medium">Name</p>
               <Input
@@ -401,7 +387,6 @@ const Onboarding = () => {
               />
             </div>
 
-            {}
             <div className="lg:flex-1 px-2">
               <p className="font-medium">Username</p>
               <Input
@@ -464,7 +449,6 @@ const Onboarding = () => {
             </div>
           </div>
 
-          {}
           <div className="mt-10 flex justify-center items-center">
             <PrimaryButton
               className="w-full max-w-md"

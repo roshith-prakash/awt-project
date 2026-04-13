@@ -53,12 +53,10 @@ const Protector = ({ children }) => {
       <div className="dark:bg-darkbg dark:text-darkmodetext h-screen">
         <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               You have not signed in!
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -66,7 +64,6 @@ const Protector = ({ children }) => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={() => navigate("/signup")}
@@ -86,7 +83,6 @@ const Protector = ({ children }) => {
         <Toaster />
         <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               Verify your email!
             </p>
@@ -94,7 +90,6 @@ const Protector = ({ children }) => {
               Click the link in your email to verify your email.
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -102,7 +97,6 @@ const Protector = ({ children }) => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={sendVerification}
@@ -133,12 +127,10 @@ const Protector = ({ children }) => {
       <div className="dark:bg-darkbg dark:text-darkmodetext h-screen">
         <div className="min-h-[70vh] md:min-h-[65vh] dark:bg-darkbg dark:text-darkmodetext lg:min-h-[60vh] flex items-center justify-center pt-12 pb-32">
           <div>
-            {}
             <p className="text-3xl lg:text-4xl px-5 text-center mt-14">
               You have not finished creating your account!
             </p>
             <div className="mt-10 flex flex-col gap-10 justify-center items-center">
-              {}
               <img
                 src={
                   "https://res.cloudinary.com/do8rpl9l4/image/upload/v1736738810/notfound_eqfykw.svg"
@@ -146,7 +138,6 @@ const Protector = ({ children }) => {
                 className="max-w-[50%] lg:max-w-[40%] pointer-events-none"
               />
 
-              {}
               <div>
                 <SecondaryButton
                   onClick={() => navigate("/onboarding")}

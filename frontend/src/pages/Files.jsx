@@ -255,7 +255,6 @@ const Files = () => {
 
   return (
     <>
-      {}
       <AlertModal
         onClose={() => {
           setIsDeleteModalOpen(false);
@@ -263,17 +262,14 @@ const Files = () => {
         isOpen={isDeleteModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete this file?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             This action cannot be reversed.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -294,7 +290,6 @@ const Files = () => {
         </div>
       </AlertModal>
 
-      {}
       <AlertModal
         onClose={() => {
           setIsUploadModalOpen(false);
@@ -303,7 +298,6 @@ const Files = () => {
         isOpen={isUploadModalOpen}
       >
         <div className="flex flex-col gap-6 p-6 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-          {}
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-50 dark:bg-white/10 rounded-lg">
               <IoCloudUploadOutline className="w-5 h-5 text-cta" />
@@ -322,7 +316,6 @@ const Files = () => {
             accept="application/pdf"
           />
 
-          {}
           <div className="relative">
             <button
               disabled={isUploading}
@@ -345,7 +338,6 @@ const Files = () => {
             </button>
           </div>
 
-          {}
           {files && files.length > 0 && (
             <div className="space-y-3">
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -399,7 +391,6 @@ const Files = () => {
             </div>
           )}
 
-          {}
           <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
             <PrimaryButton
               disabled={isDisabled}
@@ -425,7 +416,6 @@ const Files = () => {
         </div>
       </AlertModal>
 
-      {}
       <AlertModal
         onClose={() => {
           setIsRenameModalOpen(false);
@@ -433,12 +423,10 @@ const Files = () => {
         isOpen={isRenameModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Rename this file
           </h1>
 
-          {}
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Give your file a new name to help you find it later.
           </p>
@@ -473,7 +461,6 @@ const Files = () => {
             placeholder="Add Filename..."
           />
 
-          {}
           <div className="flex w-full justify-between">
             <div>
               <ErrorStatement
@@ -495,7 +482,6 @@ const Files = () => {
             </p>
           </div>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -519,7 +505,6 @@ const Files = () => {
       <div className="min-h-[70vh] dark:bg-darkbg dark:text-darkmodetext md:min-h-[65vh] lg:min-h-[60vh] px-8 lg:px-10 py-10">
         <div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-y-4 md:gap-x-6 mb-6">
-            {}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
               <h1 className="text-3xl md:text-4xl font-semibold font-title text-hovercta dark:text-darkmodeCTA">
                 Files
@@ -532,7 +517,6 @@ const Files = () => {
               </div>
             </div>
 
-            {}
             <SecondaryButton
               className={cn(
                 "border-transparent shadow-md transition-all",
@@ -558,7 +542,6 @@ const Files = () => {
             />
           </div>
 
-          {}
           <div className="flex flex-col items-center">
             <div className="relative my-10 mt-14 w-full max-w-3xl flex justify-center">
               <IoIosSearch className="absolute left-2 top-5 mt-0.5 text-greyText text-xl" />
@@ -571,14 +554,12 @@ const Files = () => {
             </div>
           </div>
 
-          {}
           {debouncedSearch && (
             <p className="font-medium py-5">
               Showing search results for &quot;{debouncedSearch}&quot;
             </p>
           )}
 
-          {}
           {dbFiles && dbFiles?.pages?.[0]?.data?.files.length > 0 && (
             <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {dbFiles &&
@@ -650,7 +631,7 @@ const Files = () => {
                               .
                             </p>
                           </div>
-                          {}
+
                           <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cta via-pink-400 to-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
                         </div>
                       );
@@ -660,7 +641,6 @@ const Files = () => {
             </div>
           )}
 
-          {}
           {loadingFiles && (
             <div className="py-10 lg:px-5 flex justify-center flex-wrap gap-8">
               {Array(4)
@@ -677,11 +657,9 @@ const Files = () => {
                         <p className="px-0.5 h-4 w-48 bg-gray-500 rounded animate-pulse mb-4 "></p>
                       </div>
 
-                      {}
                       <div className="mt-5 flex gap-x-3 items-center w-fit">
-                        {}
                         <div className="px-0.5 h-10 w-10 rounded-full bg-gray-500  animate-pulse mb-4 " />
-                        {}
+
                         <div>
                           <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
                           <p className="px-0.5 h-4 w-32 bg-gray-500 rounded animate-pulse mb-4 "></p>
@@ -693,7 +671,6 @@ const Files = () => {
             </div>
           )}
 
-          {}
           {dbFiles && dbFiles?.pages?.[0]?.data?.files.length == 0 && (
             <div className="flex flex-col justify-center pt-10">
               <div className="flex justify-center">

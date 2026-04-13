@@ -241,14 +241,11 @@ const EditProfile = () => {
 
       <div className="min-h-[70vh] md:min-h-[65vh] lg:min-h-[60vh] bg-bgwhite flex items-center justify-center pt-12 pb-32">
         <div className="bg-white dark:bg-secondarydarkbg dark:border-white/10 dark:border-2 w-full dark:bg-darkgrey dark:text-darkmodetext border-1 max-w-[95%] md:max-w-3xl md:mt-5 lg:mt-5 p-5 md:px-20 shadow-xl rounded-xl pb-10">
-          {}
           <h1 className="text-ink dark:text-darkmodetext pt-5 font-bold text-2xl text-center">
             Edit your Account!
           </h1>
 
-          {}
           <div className="mt-10 flex flex-col items-center gap-y-5">
-            {}
             <input
               className="hidden"
               type="file"
@@ -257,7 +254,6 @@ const EditProfile = () => {
               onChange={handleFileChange}
             />
 
-            {}
             <div className="flex justify-center">
               {image ? (
                 <img
@@ -280,7 +276,6 @@ const EditProfile = () => {
               )}
             </div>
 
-            {}
             <button
               onClick={() => {
                 if (fileRef?.current) fileRef.current.click();
@@ -291,9 +286,7 @@ const EditProfile = () => {
             </button>
           </div>
 
-          {}
           <div className="mt-14 flex flex-col gap-y-8 ">
-            {}
             <div className="lg:flex-1 px-2">
               <p className="font-medium">Name</p>
               <Input
@@ -347,7 +340,6 @@ const EditProfile = () => {
               </div>
             </div>
 
-            {}
             <div className="lg:flex-1 px-2">
               <p className="font-medium">Username</p>
               <Input
@@ -422,7 +414,6 @@ const EditProfile = () => {
             </div>
           </div>
 
-          {}
           <div className="mt-8 flex justify-center items-center">
             <button
               onClick={handlePasswordReset}
@@ -432,7 +423,6 @@ const EditProfile = () => {
             </button>
           </div>
 
-          {}
           <div className="mt-10 flex justify-center items-center">
             <PrimaryButton
               onClick={handleSubmit}

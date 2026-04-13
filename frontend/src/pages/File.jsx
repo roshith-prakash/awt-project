@@ -171,7 +171,6 @@ function File() {
 
   return (
     <div className="min-h-screen mb-10">
-      {}
       <AlertModal
         onClose={() => {
           setIsDeleteModalOpen(false);
@@ -179,17 +178,14 @@ function File() {
         isOpen={isDeleteModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Are you sure you want to delete this file?
           </h1>
 
-          {}
           <h2 className="dark:text-darkmodetext mt-1 text-base text-darkbg/80">
             This action cannot be reversed.
           </h2>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -210,7 +206,6 @@ function File() {
         </div>
       </AlertModal>
 
-      {}
       <AlertModal
         onClose={() => {
           setIsRenameModalOpen(false);
@@ -218,7 +213,6 @@ function File() {
         isOpen={isRenameModalOpen}
       >
         <div className="flex flex-col gap-y-2">
-          {}
           <h1 className="dark:text-darkmodetext font-bold text-2xl">
             Rename this file
           </h1>
@@ -227,7 +221,6 @@ function File() {
             Give your file a new name to help you find it later.
           </p>
 
-          {}
           <Input
             value={fileName}
             onChange={(e) => {
@@ -258,7 +251,6 @@ function File() {
             placeholder="Add Filename..."
           />
 
-          {}
           <div className="flex w-full justify-between">
             <div>
               <ErrorStatement
@@ -280,7 +272,6 @@ function File() {
             </p>
           </div>
 
-          {}
           <div className="mt-5 flex gap-x-5 justify-end">
             <PrimaryButton
               disabled={isDisabled}
@@ -303,12 +294,11 @@ function File() {
 
       {data?.data && (
         <div className="max-w-[95%] md:max-w-3xl mx-auto flex flex-col">
-          {}
           <div className="relative w-full mb-10 md:max-w-5xl mx-auto mt-10 px-4 py-6 bg-white dark:bg-white/5 rounded-xl shadow-sm">
             <p className="text-3xl pr-12 font-semibold">
               {data?.data?.file?.fileName}
             </p>
-            {}
+
             <div className="absolute top-5 right-5">
               <Popover>
                 <PopoverTrigger className="flex items-center cursor-pointer">
@@ -341,7 +331,6 @@ function File() {
             </div>
           </div>
 
-          {}
           <div className="w-fit mx-auto relative z-1 ">
             <Document
               file={data?.data?.file?.fileURL}
@@ -353,10 +342,8 @@ function File() {
             </Document>
           </div>
 
-          {}
           <div className="flex flex-col items-center gap-2 py-4 px-4">
             <div className="flex items-center justify-between w-full max-w-md gap-4">
-              {}
               <button
                 onClick={prevPage}
                 disabled={pageNumber <= 1}
@@ -371,7 +358,6 @@ function File() {
                 Prev
               </button>
 
-              {}
               <div className="flex items-center gap-2">
                 <input
                   type="number"
@@ -390,7 +376,6 @@ function File() {
                 />
               </div>
 
-              {}
               <button
                 onClick={nextPage}
                 disabled={pageNumber >= (numPages || 1)}
@@ -406,7 +391,6 @@ function File() {
               </button>
             </div>
 
-            {}
             <p className="text-sm text-gray-600 dark:text-gray-200 mt-1">
               Page <span className="font-medium">{pageNumber}</span> of{" "}
               <span className="font-medium">{numPages}</span>

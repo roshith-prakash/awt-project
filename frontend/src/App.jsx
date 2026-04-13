@@ -48,7 +48,6 @@ function App() {
     <div
       className={`bg-whitebg dark:bg-darkbg font-body dark:text-darkmodetext dark:placeholder:text-darkmodetext`}
     >
-      {}
       <Toaster
         toastOptions={{
           style: {
@@ -58,7 +57,6 @@ function App() {
         }}
       />
 
-      {}
       {isLoading && (
         <div className="min-h-screen w-full flex flex-col gap-y-10 justify-center items-center">
           <img
@@ -66,7 +64,6 @@ function App() {
             className="w-52 pointer-events-none"
           />
 
-          {}
           <SyncLoader
             color={"#9b0ced"}
             loading={isLoading}
@@ -75,7 +72,6 @@ function App() {
             data-testid="loader"
           />
 
-          {}
           <p className="text-center px-5 max-w-2xl lml-3 font-medium mb-10 text-xl">
             Quizzer might take a minute or two to load because the server's
             powered by broke dreams. Go grab a snack - you've got more resources
@@ -84,17 +80,14 @@ function App() {
         </div>
       )}
 
-      {}
       {data?.data && (
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">
               <Routes>
-                {}
                 <Route path="/" element={<Home />} />
 
-                {}
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signin" element={<Login />} />
                 <Route path="/onboarding" element={<Onboarding />} />
@@ -102,10 +95,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/auth-action" element={<AuthAction />} />
 
-                {}
                 <Route path="/faq" element={<FAQ />} />
-
-                {}
 
                 <Route
                   path="/edit-profile"
@@ -116,7 +106,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/profile"
                   element={
@@ -126,7 +115,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/user/:username"
                   element={
@@ -136,9 +124,6 @@ function App() {
                   }
                 />
 
-                {}
-
-                {}
                 <Route
                   path="/notes"
                   element={
@@ -148,7 +133,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/notes/:noteId"
                   element={
@@ -158,9 +142,6 @@ function App() {
                   }
                 />
 
-                {}
-
-                {}
                 <Route
                   path="/files"
                   element={
@@ -170,7 +151,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/files/:fileId"
                   element={
@@ -180,9 +160,6 @@ function App() {
                   }
                 />
 
-                {}
-
-                {}
                 <Route
                   path="/flashcard"
                   element={
@@ -192,7 +169,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/mcq"
                   element={
@@ -202,7 +178,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/fact-or-not"
                   element={
@@ -212,7 +187,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/quizzes"
                   element={
@@ -222,7 +196,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/quizzes/:quizId"
                   element={
@@ -232,7 +205,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/quizzes/create"
                   element={
@@ -242,7 +214,6 @@ function App() {
                   }
                 />
 
-                {}
                 <Route
                   path="/quizzes/edit/:quizId"
                   element={
@@ -252,10 +223,6 @@ function App() {
                   }
                 />
 
-                {}
-                {}
-
-                {}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

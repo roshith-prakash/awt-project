@@ -70,7 +70,6 @@ const Home = () => {
 
   return (
     <div>
-      {}
       <section className="relative overflow-hidden">
         <div className="relative container mx-auto px-6 py-14 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -154,7 +153,6 @@ const Home = () => {
         </div>
       </section>
 
-      {}
       {dbUser && nextCreditUpdate && (
         <section className="py-20">
           <div className="container mx-auto px-4">
@@ -191,7 +189,6 @@ const Home = () => {
         </section>
       )}
 
-      {}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -244,7 +241,6 @@ const Home = () => {
         </div>
       </section>
 
-      {}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
@@ -299,7 +295,6 @@ const Home = () => {
         </div>
       </section>
 
-      {}
       <section className="py-20">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto space-y-8">

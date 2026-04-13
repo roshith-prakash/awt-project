@@ -40,7 +40,6 @@ const Modal = ({ isOpen, onClose, children, className }) => {
       }`}
       onClick={handleBackdropClick}
     >
-      {}
       <div
         className={cn(
           `dark:bg-secondarydarkbg scroller ${

@@ -46,7 +46,6 @@ const InputBox = ({
 
   return (
     <div className="py-10 flex justify-center ">
-      {}
       <NoteSelectModal
         selectedNote={note}
         onSelect={(selectedNote) => {
@@ -57,7 +56,6 @@ const InputBox = ({
         onClose={() => setIsNoteModalOpen(false)}
       />
 
-      {}
       <FileSelectModal
         selectedFile={file}
         onSelect={(selectedFile) => {
@@ -77,7 +75,6 @@ const InputBox = ({
       />
 
       <div className="flex max-w-[95%] relative w-full sm:max-w-xl py-10 px-10 flex-col items-center gap-y-8 bg-white dark:bg-white/5 rounded-xl shadow-xl">
-        {}
         {questions && questions?.length > 0 && (
           <div className="absolute top-5 right-5">
             <Popover>
@@ -102,17 +99,14 @@ const InputBox = ({
           </div>
         )}
 
-        {}
         <div className="flex items-center gap-x-2">
           <p className="text-cta font-title  dark:text-darkmodeCTA text-3xl tracking-wider font-medium">
             {title}
           </p>
         </div>
 
-        {}
         <p className="text-center font-medium text-xl">Enter your topic :</p>
 
-        {}
         <input
           disabled={isLoading || isFetching}
           type="text"
@@ -132,12 +126,9 @@ const InputBox = ({
           </p>
         )}
 
-        {}
         <p className="text-center text-xl font-medium">Choose Difficulty :</p>
 
-        {}
         <div className="flex justify-evenly text-lg gap-x-10">
-          {}
           <div className="flex gap-x-2 justify-center">
             <input
               disabled={isLoading || isFetching}
@@ -150,7 +141,7 @@ const InputBox = ({
             />{" "}
             Easy
           </div>
-          {}
+
           <div className="flex gap-x-2 justify-center">
             <input
               disabled={isLoading || isFetching}
@@ -163,7 +154,7 @@ const InputBox = ({
             />{" "}
             Medium
           </div>
-          {}
+
           <div className="flex gap-x-2 justify-center">
             <input
               disabled={isLoading || isFetching}
@@ -178,7 +169,6 @@ const InputBox = ({
           </div>
         </div>
 
-        {}
         <div className="mt-5 flex w-full gap-4 items-center flex-col md:flex-row md:justify-between md:items-center">
           <PrimaryButton
             onClick={() => {
@@ -187,7 +177,6 @@ const InputBox = ({
             text="Select File"
           />
 
-          {}
           {file && (
             <div
               key={file?.assetId}
@@ -215,7 +204,6 @@ const InputBox = ({
           {!file && <p>Optional : Select a file!</p>}
         </div>
 
-        {}
         {file && (
           <p className="text-center">
             Note : Requests with PDFs tend to take a lot longer!
@@ -223,7 +211,6 @@ const InputBox = ({
           </p>
         )}
 
-        {}
         <div className="mt-5 flex w-full gap-4 items-center flex-col md:flex-row md:justify-between md:items-center">
           <PrimaryButton
             onClick={() => {
@@ -232,7 +219,6 @@ const InputBox = ({
             text="Select Note"
           />
 
-          {}
           {note && (
             <div
               key={note?.noteId}
@@ -259,7 +245,6 @@ const InputBox = ({
           {!note && <p>Optional : Select a note!</p>}
         </div>
 
-        {}
         <div className="mt-5 flex justify-center">
           <PrimaryButton
             onClick={handleClick}
@@ -268,7 +253,6 @@ const InputBox = ({
           ></PrimaryButton>
         </div>
 
-        {}
         {questions && questions?.length > 0 && !isLoading && (
           <div className="flex flex-col items-center gap-y-4 w-full mt-5">
             <p className="text-cta dark:text-darkmodetext font-medium animate-bounce flex gap-x-2 items-center">

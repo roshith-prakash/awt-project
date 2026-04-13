@@ -177,7 +177,6 @@ const QuizEditor = () => {
   return (
     <div className="min-h-screen pb-20 px-4 md:px-10 py-10">
       <div className="max-w-4xl mx-auto">
-        {}
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => navigate(-1)}
@@ -200,7 +199,6 @@ const QuizEditor = () => {
           </div>
         </div>
 
-        {}
         <div className="bg-white dark:bg-white/5 rounded-2xl shadow-xl p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -259,7 +257,6 @@ const QuizEditor = () => {
           </div>
         </div>
 
-        {}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold font-title">Questions</h2>

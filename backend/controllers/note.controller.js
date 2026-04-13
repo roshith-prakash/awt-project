@@ -2,7 +2,7 @@ import { prisma } from "../utils/prismaClient.js";
 import { v4 as uuidv4 } from "uuid";
 import { htmlToText } from "html-to-text";
 import { noteLimit } from "../constants/constants.js";
-// import { diff_match_patch } from "diff-match-patch";
+
 // Creates a blank note
 export const createNewNote = async (req, res) => {
   try {
@@ -42,6 +42,7 @@ export const createNewNote = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Get number of notes created by the user
 export const getNumberOfNotes = async (req, res) => {
   try {
@@ -64,6 +65,7 @@ export const getNumberOfNotes = async (req, res) => {
       .send({ message: "Something went wrong while deleting the file." });
   }
 };
+
 // Gets an existing note by ID
 export const getNoteByID = async (req, res) => {
   try {
@@ -87,6 +89,7 @@ export const getNoteByID = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Gets all notes created by a user
 export const getNotesCreatedByAUser = async (req, res) => {
   try {
@@ -150,6 +153,7 @@ export const getNotesCreatedByAUser = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Updates an existing note
 export const updateNote = async (req, res) => {
   try {
@@ -178,6 +182,7 @@ export const updateNote = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Renames an existing note
 export const renameNote = async (req, res) => {
   try {
@@ -205,6 +210,7 @@ export const renameNote = async (req, res) => {
     res.status(500).send({ data: "Something went wrong." });
   }
 };
+
 // Deletes an existing note
 export const deleteNote = async (req, res) => {
   try {

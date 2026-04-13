@@ -11,7 +11,3 @@ export const isValidPassword = (password) => {
 export const isValidUsername = (username) => {
   return /^[a-zA-Z0-9_]+$/.test(username);
 };
-
-export const isValidTeamOrLeagueName = (name) => {
-  return /^(?=.*[a-zA-Z]).{3,}$/.test(String(name).trim());
-};
