@@ -2,17 +2,15 @@
   "name": "awt-project",
   "version": "1.0.0",
   "description": "Server for Grid Manager - A Fantasy F1 App.",
-  "main": "index.ts",
+  "main": "index.js",
   "keywords": [],
   "author": "Roshith Prakash",
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "build": "npx tsc",
-    "devCompiler": "npx tsc --watch",
-    "dev": "nodemon dist/index.js",
+    "dev": "nodemon index.js",
     "studio": "npx prisma studio",
-    "server": "node dist/index.js",
+    "server": "node index.js",
     "postinstall": "npx prisma generate"
   },
   "dependencies": {
@@ -34,14 +32,6 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/diff-match-patch": "^1.0.36",
-    "@types/express": "^5.0.0",
-    "@types/html-to-text": "^9.0.4",
-    "@types/multer": "^1.4.12",
-    "@types/node": "^22.10.5",
-    "prisma": "^6.4.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "prisma": "^6.4.0"
   }
 }
