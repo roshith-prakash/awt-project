@@ -1,11 +1,18 @@
 import upload from "../utils/multer.js";
-import { createUser, getCurrentUser, getUserProfile, checkIfUsernameExists, updateUser, deleteUser, } from "../controllers/user.controller.js";
+import {
+  createUser,
+  getCurrentUser,
+  getUserProfile,
+  checkIfUsernameExists,
+  updateUser,
+  deleteUser,
+} from "../controllers/user.controller.js";
 import { Router } from "express";
 // Create a router.
 const router = Router();
 // Default route to check if auth routes are accessible.
 router.get("/", (_, res) => {
-    res.status(200).send({ data: "Auth Route" });
+  res.status(200).send({ data: "Auth Route" });
 });
 // ---------------------------------------------------------------------
 // USER ROUTES

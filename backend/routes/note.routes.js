@@ -1,10 +1,18 @@
-import { createNewNote, deleteNote, getNoteByID, getNotesCreatedByAUser, getNumberOfNotes, renameNote, updateNote, } from "../controllers/note.controller.js";
+import {
+  createNewNote,
+  deleteNote,
+  getNoteByID,
+  getNotesCreatedByAUser,
+  getNumberOfNotes,
+  renameNote,
+  updateNote,
+} from "../controllers/note.controller.js";
 import { Router } from "express";
 // Initialize router
 const router = Router();
 // Health check route
 router.get("/", (_, res) => {
-    res.status(200).send({ data: "Note Route Active" });
+  res.status(200).send({ data: "Note Route Active" });
 });
 // ---------------------------------------------------------------------
 // NOTE ROUTES

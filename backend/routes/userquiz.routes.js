@@ -1,10 +1,18 @@
-import { createQuiz, deleteQuiz, getNumberOfQuizzes, getQuizById, getQuizzesCreatedByAUser, renameQuiz, updateQuiz, } from "../controllers/userquiz.controller.js";
+import {
+  createQuiz,
+  deleteQuiz,
+  getNumberOfQuizzes,
+  getQuizById,
+  getQuizzesCreatedByAUser,
+  renameQuiz,
+  updateQuiz,
+} from "../controllers/userquiz.controller.js";
 import { Router } from "express";
 // Initialize router
 const router = Router();
 // Health check route
 router.get("/", (_, res) => {
-    res.status(200).send({ data: "User Quiz Route Active" });
+  res.status(200).send({ data: "User Quiz Route Active" });
 });
 // ---------------------------------------------------------------------
 // User Quiz ROUTES

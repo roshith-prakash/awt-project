@@ -1,11 +1,18 @@
 import upload from "../utils/multer.js";
-import { uploadFiles, deleteFile, getFilesUploadedByAUser, getFileById, updateFileName, getNumberOfFiles, } from "../controllers/file.controller.js";
+import {
+  uploadFiles,
+  deleteFile,
+  getFilesUploadedByAUser,
+  getFileById,
+  updateFileName,
+  getNumberOfFiles,
+} from "../controllers/file.controller.js";
 import { Router } from "express";
 // Initialize router
 const router = Router();
 // Health check route for file routes
 router.get("/", (_, res) => {
-    res.status(200).send({ data: "Files Route Active" });
+  res.status(200).send({ data: "Files Route Active" });
 });
 // ---------------------------------------------------------------------
 // FILE ROUTES
